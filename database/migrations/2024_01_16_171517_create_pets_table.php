@@ -13,7 +13,15 @@ return new class extends Migration
     {
         Schema::create('pets', function (Blueprint $table) {
             $table->id();
+            $table->string('name',50);
+            $table->char('gender',1);
+            $table->date('birth');
+            $table->string('code',20);
+            $table->unsignedBigInteger('breed_id');
+            $table->integer('status');
             $table->timestamps();
+
+            $table->foreign('breed_id')->references('id')->on('breeds');
         });
     }
 

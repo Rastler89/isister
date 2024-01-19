@@ -13,7 +13,11 @@ return new class extends Migration
     {
         Schema::create('breeds', function (Blueprint $table) {
             $table->id();
+            $table->json('name');
+            $table->unsignedBigInteger('specie_id');
             $table->timestamps();
+
+            $table->foreign('specie_id')->references('id')->on('species');
         });
     }
 
