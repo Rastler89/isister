@@ -13,7 +13,13 @@ return new class extends Migration
     {
         Schema::create('surgeries', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('pet_id');
+            $table->unsignedBigInteger('type');
+            $table->datetime('date');
             $table->timestamps();
+
+            $table->foreign('pet_id')->references('id')->on('pets');
+            $table->foreign('type')->references('id')->on('operation_types');
         });
     }
 

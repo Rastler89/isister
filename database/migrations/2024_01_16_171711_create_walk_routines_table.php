@@ -13,7 +13,13 @@ return new class extends Migration
     {
         Schema::create('walk_routines', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('pet_id');
+            $table->integer('DayOfWeek');
+            $table->time('time');
+            $table->string('description',300);
             $table->timestamps();
+
+            $table->foreign('pet_id')->references('id')->on('pets');
         });
     }
 

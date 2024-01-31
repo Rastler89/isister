@@ -3,7 +3,7 @@
 namespace App\Traits;
 
 trait Translatable {
-    protected $casts = [
+    protected $traductions = [
         'name' => 'array'
     ];
 

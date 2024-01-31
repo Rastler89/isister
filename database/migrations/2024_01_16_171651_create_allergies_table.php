@@ -13,7 +13,12 @@ return new class extends Migration
     {
         Schema::create('allergies', function (Blueprint $table) {
             $table->id();
+            $table->string('name',50);
+            $table->string('description',300);
+            $table->unsignedBigInteger('pet_id');
             $table->timestamps();
+
+            $table->foreign('pet_id')->references('id')->on('pets');
         });
     }
 

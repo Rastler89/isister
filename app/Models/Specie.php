@@ -16,4 +16,8 @@ class Specie extends Model
         return $this->hasMany(Breed::class);
     }
 
+    public function diseases() {
+        return $this->belongsToMany(Disease::class);
+    }
+
 }

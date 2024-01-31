@@ -13,7 +13,13 @@ return new class extends Migration
     {
         Schema::create('treatments', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('pet_id');
+            $table->string('description',500);
+            $table->datetime('start');
+            $table->datetime('end');
             $table->timestamps();
+
+            $table->foreign('pet_id')->references('id')->on('pets');
         });
     }
 
