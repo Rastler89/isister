@@ -11,7 +11,13 @@ class PetController extends Controller
 
     //Torna totes les mascotes
     public function pets(Request $request) {
-        return response()->json($request->user()->id);
+        $data = Pet::where('user_id','=',$request->user()->id)->get();
+        $count = Pet::where('user_id','=',$request->user()->id)->count();
+
+        $response['data'] = $data;
+        $response['count'] = $count;
+
+        return response()->json($response);
     }
 
     //Afegeix una mascota
@@ -30,10 +36,5 @@ class PetController extends Controller
 
         return response()->json($pet->id);
 
-    }
-
-    //Contador de mascotes
-    public function count(Request $request) {
-        return response()->json(Pet::where('user_id','=',$request->user()->id)->count());
     }
 }
