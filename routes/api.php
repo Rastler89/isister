@@ -28,7 +28,7 @@ Route::group(['middleware' => ['auth:api']], function() {
     Route::get('/species/{id}/breeds', [BreedController::class, 'getBySpecie']);
 
     Route::get('/pets',[PetController::class, 'pets']);
-    Route::post('/pets/add', [PetController::class, 'add']);
+    Route::post('/pets', [PetController::class, 'add']);
 
     Route::get('/profile',[UserController::class, 'profile']);
     Route::get('/profile/methods',[UserController::class, 'payments_method']);
