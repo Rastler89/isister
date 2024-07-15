@@ -15,300 +15,300 @@ class SpecieSeeder extends Seeder
     public function run(): void
     {
         $cat = Specie::create([
-            'name' => '{"en": "Gato", "es": "Cat"}'
+            'name' => '{"es": "Gato", "en": "Cat"}'
         ]);
 
         $dog = Specie::create([
-            'name' => '{"en": "Perro", "es": "Dog"}'
+            'name' => '{"es": "Perro", "en": "Dog"}'
         ]);
 
         $cats = array(
         [
-            'name' => json_encode(['en' => 'Siamés', 'es' => 'Siames']),
+            'name' => json_encode(['es' => 'Siamés', 'en' => 'Siames']),
             'specie_id' => $cat->id
         ],
         [
-            'name' => json_encode(['en' => 'Persa', 'es' => 'Persa']),
+            'name' => json_encode(['es' => 'Persa', 'en' => 'Persa']),
             'specie_id' => $cat->id
         ],
         [
-            'name' => json_encode(['en' => 'Kohana', 'es' => 'Kohana']),
+            'name' => json_encode(['es' => 'Kohana', 'en' => 'Kohana']),
             'specie_id' => $cat->id
         ],
         [
-            'name' => json_encode(['en' => 'Británico de pelo corto', 'es' => 'British shorthair']),
+            'name' => json_encode(['es' => 'Británico de pelo corto', 'en' => 'British shorthair']),
             'specie_id' => $cat->id
         ],
         [
-            'name' => json_encode(['en' => 'Elfo', 'es' => 'Elfo']),
+            'name' => json_encode(['es' => 'Elfo', 'en' => 'Elfo']),
             'specie_id' => $cat->id
         ],
         [
-            'name' => json_encode(['en' => 'Bambino', 'es' => 'Bambino']),
+            'name' => json_encode(['es' => 'Bambino', 'en' => 'Bambino']),
             'specie_id' => $cat->id
         ],
         [
-            'name' => json_encode(['en' => 'Levkoy ucraniano', 'es' => 'Levkoy ucraniano']),
+            'name' => json_encode(['es' => 'Levkoy ucraniano', 'en' => 'Levkoy ucraniano']),
             'specie_id' => $cat->id
         ],
         [
-            'name' => json_encode(['en' => 'Lykoi (gato lobo)', 'es' => 'Lykoi']),
+            'name' => json_encode(['es' => 'Lykoi (gato lobo)', 'en' => 'Lykoi']),
             'specie_id' => $cat->id
         ],
         [
-            'name' => json_encode(['en' => 'Americano de pelo corto', 'es' => 'American shorthair']),
+            'name' => json_encode(['es' => 'Americano de pelo corto', 'en' => 'American shorthair']),
             'specie_id' => $cat->id
         ],
         [
-            'name' => json_encode(['en' => 'Bengalí', 'es' => 'Bengali']),
+            'name' => json_encode(['es' => 'Bengalí', 'en' => 'Bengali']),
             'specie_id' => $cat->id
         ],
         [
-            'name' => json_encode(['en' => 'Himalayo', 'es' => 'Himalayo']),
+            'name' => json_encode(['es' => 'Himalayo', 'en' => 'Himalayo']),
             'specie_id' => $cat->id
         ],
         [
-            'name' => json_encode(['en' => 'Manx', 'es' => 'Manx']),
+            'name' => json_encode(['es' => 'Manx', 'en' => 'Manx']),
             'specie_id' => $cat->id
         ],
         [
-            'name' => json_encode(['en' => 'Nebelung', 'es' => 'Nebelung']),
+            'name' => json_encode(['es' => 'Nebelung', 'en' => 'Nebelung']),
             'specie_id' => $cat->id
         ],
         [
-            'name' => json_encode(['en' => 'Maine Coon', 'es' => 'Maine Coon']),
+            'name' => json_encode(['es' => 'Maine Coon', 'en' => 'Maine Coon']),
             'specie_id' => $cat->id
         ],
         [
-            'name' => json_encode(['en' => 'Ceilán', 'es' => 'Ceilán']),
+            'name' => json_encode(['es' => 'Ceilán', 'en' => 'Ceilán']),
             'specie_id' => $cat->id
         ],
         [
-            'name' => json_encode(['en' => 'Kurilian Bobtail', 'es' => 'Kurilian Bobtail']),
+            'name' => json_encode(['es' => 'Kurilian Bobtail', 'en' => 'Kurilian Bobtail']),
             'specie_id' => $cat->id
         ],
         [
-            'name' => json_encode(['en' => 'Ragdoll', 'es' => 'Ragdoll']),
+            'name' => json_encode(['es' => 'Ragdoll', 'en' => 'Ragdoll']),
             'specie_id' => $cat->id
         ],
         [
-            'name' => json_encode(['en' => 'Thai (Siamés original)', 'es' => 'Thai']),
+            'name' => json_encode(['es' => 'Thai (Siamés original)', 'en' => 'Thai']),
             'specie_id' => $cat->id
         ],
         [
-            'name' => json_encode(['en' => 'Rex Alemán', 'es' => 'German Rex']),
+            'name' => json_encode(['es' => 'Rex Alemán', 'en' => 'German Rex']),
             'specie_id' => $cat->id
         ],
         [
-            'name' => json_encode(['en' => 'Don Sphynx / Donskoy', 'es' => 'Don Sphynx / Donskoy']),
+            'name' => json_encode(['es' => 'Don Sphynx / Donskoy', 'en' => 'Don Sphynx / Donskoy']),
             'specie_id' => $cat->id
         ],
         [
-            'name' => json_encode(['en' => 'Neva Masquerade', 'es' => 'Neva Masquerade']),
+            'name' => json_encode(['es' => 'Neva Masquerade', 'en' => 'Neva Masquerade']),
             'specie_id' => $cat->id
         ],
         [
-            'name' => json_encode(['en' => 'Van Turco', 'es' => 'Van Turco']),
+            'name' => json_encode(['es' => 'Van Turco', 'en' => 'Van Turco']),
             'specie_id' => $cat->id
         ],
         [
-            'name' => json_encode(['en' => 'Snowshoe', 'es' => 'Snowshoe']),
+            'name' => json_encode(['es' => 'Snowshoe', 'en' => 'Snowshoe']),
             'specie_id' => $cat->id
         ],
         [
-            'name' => json_encode(['en' => 'Chantilly-Tiffany', 'es' => 'Chantilly-Tiffany']),
+            'name' => json_encode(['es' => 'Chantilly-Tiffany', 'en' => 'Chantilly-Tiffany']),
             'specie_id' => $cat->id
         ],
         [
-            'name' => json_encode(['en' => 'Colorpoint', 'es' => 'Colorpoint']),
+            'name' => json_encode(['es' => 'Colorpoint', 'en' => 'Colorpoint']),
             'specie_id' => $cat->id
         ],
         [
-            'name' => json_encode(['en' => 'Angora Turco', 'es' => 'Angora Turco']),
+            'name' => json_encode(['es' => 'Angora Turco', 'en' => 'Angora Turco']),
             'specie_id' => $cat->id
         ],
         [
-            'name' => json_encode(['en' => 'Minskin', 'es' => 'Minskin']),
+            'name' => json_encode(['es' => 'Minskin', 'en' => 'Minskin']),
             'specie_id' => $cat->id
         ],
         [
-            'name' => json_encode(['en' => 'Habana', 'es' => 'Habana']),
+            'name' => json_encode(['es' => 'Habana', 'en' => 'Habana']),
             'specie_id' => $cat->id
         ],
         [
-            'name' => json_encode(['en' => 'Común Europeo (Romano)', 'es' => 'European']),
+            'name' => json_encode(['es' => 'Común Europeo (Romano)', 'en' => 'European']),
             'specie_id' => $cat->id
         ],
         [
-            'name' => json_encode(['en' => 'Ragamuffin', 'es' => 'Ragamuffin']),
+            'name' => json_encode(['es' => 'Ragamuffin', 'en' => 'Ragamuffin']),
             'specie_id' => $cat->id
         ],
         [
-            'name' => json_encode(['en' => 'Ashera', 'es' => 'Ashera']),
+            'name' => json_encode(['es' => 'Ashera', 'en' => 'Ashera']),
             'specie_id' => $cat->id
         ],
         [
-            'name' => json_encode(['en' => 'Británico de Pelo Largo', 'es' => 'British Longhair']),
+            'name' => json_encode(['es' => 'Británico de Pelo Largo', 'en' => 'British Longhair']),
             'specie_id' => $cat->id
         ],
         [
-            'name' => json_encode(['en' => 'Khao Manee', 'es' => 'Khao Manee']),
+            'name' => json_encode(['es' => 'Khao Manee', 'en' => 'Khao Manee']),
             'specie_id' => $cat->id
         ],
         [
-            'name' => json_encode(['en' => 'Caracat', 'es' => 'Caracat']),
+            'name' => json_encode(['es' => 'Caracat', 'en' => 'Caracat']),
             'specie_id' => $cat->id
         ],
         [
-            'name' => json_encode(['en' => 'Highland Fold', 'es' => 'Highland Fold']),
+            'name' => json_encode(['es' => 'Highland Fold', 'en' => 'Highland Fold']),
             'specie_id' => $cat->id
         ],
         [
-            'name' => json_encode(['en' => 'Bobtail Americano', 'es' => 'American Bobtail']),
+            'name' => json_encode(['es' => 'Bobtail Americano', 'en' => 'American Bobtail']),
             'specie_id' => $cat->id
         ],
         [
-            'name' => json_encode(['en' => 'Cymric', 'es' => 'Cymric']),
+            'name' => json_encode(['es' => 'Cymric', 'en' => 'Cymric']),
             'specie_id' => $cat->id
         ],
         [
-            'name' => json_encode(['en' => 'Skookum', 'es' => 'Skookum']),
+            'name' => json_encode(['es' => 'Skookum', 'en' => 'Skookum']),
             'specie_id' => $cat->id
         ],
         [
-            'name' => json_encode(['en' => 'Toyger', 'es' => 'Toyger']),
+            'name' => json_encode(['es' => 'Toyger', 'en' => 'Toyger']),
             'specie_id' => $cat->id
         ],
         [
-            'name' => json_encode(['en' => 'Munchkin', 'es' => 'Munchkin']),
+            'name' => json_encode(['es' => 'Munchkin', 'en' => 'Munchkin']),
             'specie_id' => $cat->id
         ],
         [
-            'name' => json_encode(['en' => 'American Wirehair', 'es' => 'American Wirehair']),
+            'name' => json_encode(['es' => 'American Wirehair', 'en' => 'American Wirehair']),
             'specie_id' => $cat->id
         ],
         [
-            'name' => json_encode(['en' => 'Pixie Bob', 'es' => 'Pixie Bob']),
+            'name' => json_encode(['es' => 'Pixie Bob', 'en' => 'Pixie Bob']),
             'specie_id' => $cat->id
         ],
         [
-            'name' => json_encode(['en' => 'Tonkinés', 'es' => 'Tonkinés']),
+            'name' => json_encode(['es' => 'Tonkinés', 'en' => 'Tonkinés']),
             'specie_id' => $cat->id
         ],
         [
-            'name' => json_encode(['en' => 'LaPerm', 'es' => 'LaPerm']),
+            'name' => json_encode(['es' => 'LaPerm', 'en' => 'LaPerm']),
             'specie_id' => $cat->id
         ],
         [
-            'name' => json_encode(['en' => 'Burmilla', 'es' => 'Burmilla']),
+            'name' => json_encode(['es' => 'Burmilla', 'en' => 'Burmilla']),
             'specie_id' => $cat->id
         ],
         [
-            'name' => json_encode(['en' => 'Curl Americano', 'es' => 'Curl Americano']),
+            'name' => json_encode(['es' => 'Curl Americano', 'en' => 'Curl Americano']),
             'specie_id' => $cat->id
         ],
         [
-            'name' => json_encode(['en' => 'Montés', 'es' => 'Montés']),
+            'name' => json_encode(['es' => 'Montés', 'en' => 'Montés']),
             'specie_id' => $cat->id
         ],
         [
-            'name' => json_encode(['en' => 'Chausie', 'es' => 'Chausie']),
+            'name' => json_encode(['es' => 'Chausie', 'en' => 'Chausie']),
             'specie_id' => $cat->id
         ],
         [
-            'name' => json_encode(['en' => 'Devon Rex', 'es' => 'Devon Rex']),
+            'name' => json_encode(['es' => 'Devon Rex', 'en' => 'Devon Rex']),
             'specie_id' => $cat->id
         ],
         [
-            'name' => json_encode(['en' => 'Javanés (Oriental de Pelo Largo)', 'es' => 'Javanés (Oriental de Pelo Largo)']),
+            'name' => json_encode(['es' => 'Javanés (Oriental de Pelo Largo)', 'en' => 'Javanés (Oriental de Pelo Largo)']),
             'specie_id' => $cat->id
         ],
         [
-            'name' => json_encode(['en' => 'Scottish Fold', 'es' => 'Scottish Fold']),
+            'name' => json_encode(['es' => 'Scottish Fold', 'en' => 'Scottish Fold']),
             'specie_id' => $cat->id
         ],
         [
-            'name' => json_encode(['en' => 'Korat', 'es' => 'Korat']),
+            'name' => json_encode(['es' => 'Korat', 'en' => 'Korat']),
             'specie_id' => $cat->id
         ],
         [
-            'name' => json_encode(['en' => 'Somali', 'es' => 'Somali']),
+            'name' => json_encode(['es' => 'Somali', 'en' => 'Somali']),
             'specie_id' => $cat->id
         ],
         [
-            'name' => json_encode(['en' => 'Sphynx / Esfinge', 'es' => 'Sphynx / Esfinge']),
+            'name' => json_encode(['es' => 'Sphynx / Esfinge', 'en' => 'Sphynx / Esfinge']),
             'specie_id' => $cat->id
         ],
         [
-            'name' => json_encode(['en' => 'Savannah', 'es' => 'Savannah']),
+            'name' => json_encode(['es' => 'Savannah', 'en' => 'Savannah']),
             'specie_id' => $cat->id
         ],
         [
-            'name' => json_encode(['en' => 'Chartreux', 'es' => 'Chartreux']),
+            'name' => json_encode(['es' => 'Chartreux', 'en' => 'Chartreux']),
             'specie_id' => $cat->id
         ],
         [
-            'name' => json_encode(['en' => 'Sokoke', 'es' => 'Sokoke']),
+            'name' => json_encode(['es' => 'Sokoke', 'en' => 'Sokoke']),
             'specie_id' => $cat->id
         ],
         [
-            'name' => json_encode(['en' => 'Selkirk Rex', 'es' => 'Selkirk Rex']),
+            'name' => json_encode(['es' => 'Selkirk Rex', 'en' => 'Selkirk Rex']),
             'specie_id' => $cat->id
         ],
         [
-            'name' => json_encode(['en' => 'Cornish Rex', 'es' => 'Cornish Rex']),
+            'name' => json_encode(['es' => 'Cornish Rex', 'en' => 'Cornish Rex']),
             'specie_id' => $cat->id
         ],
         [
-            'name' => json_encode(['en' => 'Ocicat', 'es' => 'Ocicat']),
+            'name' => json_encode(['es' => 'Ocicat', 'en' => 'Ocicat']),
             'specie_id' => $cat->id
         ],
         [
-            'name' => json_encode(['en' => 'Peterbald', 'es' => 'Peterbald']),
+            'name' => json_encode(['es' => 'Peterbald', 'en' => 'Peterbald']),
             'specie_id' => $cat->id
         ],
         [
-            'name' => json_encode(['en' => 'Oriental de Pelo Corto', 'es' => 'Oriental de Pelo Corto']),
+            'name' => json_encode(['es' => 'Oriental de Pelo Corto', 'en' => 'Oriental de Pelo Corto']),
             'specie_id' => $cat->id
         ],
         [
-            'name' => json_encode(['en' => 'Siberiano', 'es' => 'Siberiano']),
+            'name' => json_encode(['es' => 'Siberiano', 'en' => 'Siberiano']),
             'specie_id' => $cat->id
         ],
         [
-            'name' => json_encode(['en' => 'Exótico de Pelo Corto', 'es' => 'Exótico de Pelo Corto']),
+            'name' => json_encode(['es' => 'Exótico de Pelo Corto', 'en' => 'Exótico de Pelo Corto']),
             'specie_id' => $cat->id
         ],
         [
-            'name' => json_encode(['en' => 'Birmano', 'es' => 'Birmano']),
+            'name' => json_encode(['es' => 'Birmano', 'en' => 'Birmano']),
             'specie_id' => $cat->id
         ],
         [
-            'name' => json_encode(['en' => 'Bosque de Noruega', 'es' => 'Bosque de Noruega']),
+            'name' => json_encode(['es' => 'Bosque de Noruega', 'en' => 'Bosque de Noruega']),
             'specie_id' => $cat->id
         ],
         [
-            'name' => json_encode(['en' => 'Abyssinian', 'es' => 'Abyssinian']),
+            'name' => json_encode(['es' => 'Abyssinian', 'en' => 'Abyssinian']),
             'specie_id' => $cat->id
         ],
         [
-            'name' => json_encode(['en' => 'Balinés', 'es' => 'Balinés']),
+            'name' => json_encode(['es' => 'Balinés', 'en' => 'Balinés']),
             'specie_id' => $cat->id
         ],
         [
-            'name' => json_encode(['en' => 'Russian Blue', 'es' => 'Azul Ruso']),
+            'name' => json_encode(['es' => 'Russian Blue', 'en' => 'Azul Ruso']),
             'specie_id' => $cat->id
         ],
         [
-            'name' => json_encode(['en' => 'Bombay', 'es' => 'Bombay']),
+            'name' => json_encode(['es' => 'Bombay', 'en' => 'Bombay']),
             'specie_id' => $cat->id
         ],
         [
-            'name' => json_encode(['en' => 'Egyptian Mau', 'es' => 'Mau Egipcio']),
+            'name' => json_encode(['es' => 'Egyptian Mau', 'en' => 'Mau Egipcio']),
             'specie_id' => $cat->id
         ],
         [
-            'name' => json_encode(['en' => 'Australian Mist', 'es' => 'Australian Mist']),
+            'name' => json_encode(['es' => 'Australian Mist', 'en' => 'Australian Mist']),
             'specie_id' => $cat->id
         ]);
 
@@ -1372,7 +1372,7 @@ class SpecieSeeder extends Seeder
         ]);
 
         foreach ($dogs as $race) {
-            $ne_race['name'] = json_encode(['en' => $race['name_en'], 'es' => $race['name_es']]);
+            $ne_race['name'] = json_encode(['es' => $race['name_en'], 'en' => $race['name_es']]);
             $ne_race['specie_id'] = $race['specie_id'];
             Breed::create($ne_race);
         }

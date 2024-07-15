@@ -40,4 +40,8 @@ class Pet extends Model
     public function walks() {
         return $this->hasMany(WalkRoutine::class);
     }
+
+    public function breed() {
+        return $this->hasMany(Breed::class);
+    }
 }

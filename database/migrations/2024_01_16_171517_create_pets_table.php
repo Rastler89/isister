@@ -19,7 +19,10 @@ return new class extends Migration
             $table->date('birth');
             $table->string('code',20);
             $table->unsignedBigInteger('breed_id');
-            $table->integer('status');
+            $table->integer('status')->default(1);
+            $table->string('image')->nullable();
+            $table->text('character')->nullable();
+            $table->text('description')->nullable();
             $table->timestamps();
 
             $table->foreign('breed_id')->references('id')->on('breeds');

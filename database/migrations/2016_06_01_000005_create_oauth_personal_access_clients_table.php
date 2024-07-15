@@ -11,13 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('subscriptions_types', function (Blueprint $table) {
-            $table->id();
-            $table->json('name');
-            $table->integer('pets');
-            $table->json('description');
-            $table->json('features');
-            $table->json('functions');
+        Schema::create('oauth_personal_access_clients', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('client_id');
             $table->timestamps();
         });
     }
@@ -27,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('subscriptions');
+        Schema::dropIfExists('oauth_personal_access_clients');
     }
 };
