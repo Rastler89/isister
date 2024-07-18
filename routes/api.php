@@ -9,6 +9,8 @@ use App\Http\Controllers\Api\PetController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\DiseaseController;
 use App\Http\Controllers\Api\VaccineController;
+use App\Http\Controllers\Api\AllergyController;
+use App\Http\Controllers\Api\DietController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,11 +43,17 @@ Route::group(['middleware' => ['auth:api']], function() {
     Route::get('/vaccines/{id}',[VaccineController::class, 'getVaccinesPet']);
     Route::post('/vaccines/{id}',[VaccineController::class, 'add']);
 
+    Route::get('/allergies/{id}',[AllergyController::class, 'getAllergiesPet']);
+    Route::post('/allergies/{id}',[AllergyController::class, 'add']);
+
+    Route::get('/diets/{id}',[DietController::class, 'getDietsPet']);
+    Route::post('/diets/{id}',[DietController::class, 'add']);
+
     Route::get('/profile',[UserController::class, 'profile']);
     Route::get('/profile/methods',[UserController::class, 'payments_method']);
 });
 
 //Test TODO ELIMINAR
-Route::get('/vaccines/{id}',[VaccineController::class, 'getVaccinesPet']);
+Route::get('/diets/{id}',[DietController::class, 'getDietsPet']);
 
 //Route::post('/register', [RegisterController::class, 'register']);
