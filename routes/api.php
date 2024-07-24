@@ -48,6 +48,7 @@ Route::group(['middleware' => ['auth:api']], function() {
 
     Route::get('/diets/{id}',[DietController::class, 'getDietsPet']);
     Route::post('/diets/{id}',[DietController::class, 'add']);
+    Route::delete('/diets/{id}/{day}/{hour}',[DietController::class, 'delete']);
 
     Route::get('/profile',[UserController::class, 'profile']);
     Route::get('/profile/methods',[UserController::class, 'payments_method']);

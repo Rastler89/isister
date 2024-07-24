@@ -16,6 +16,10 @@ return new class extends Migration
             $table->unsignedBigInteger('pet_id');
             $table->unsignedBigInteger('type');
             $table->datetime('date');
+            $table->string('preop');
+            $table->text('description');
+            $table->text('result');
+            $table->text('complications');
             $table->timestamps();
 
             $table->foreign('pet_id')->references('id')->on('pets');

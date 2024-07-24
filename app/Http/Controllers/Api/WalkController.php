@@ -4,12 +4,12 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Diet;
+use App\Models\Walk;
 
-class DietController extends Controller {
+class WalkController extends Controller {
 
-    public function getDietsPet($id) {
-        $actions = Diet::where('pet_id','=',$id)
+    public function getWalksPet($id) {
+        $actions = Walk::where('pet_id','=',$id)
                     ->orderBy('DayOfWeek','asc')
                     ->orderBy('time','asc')
                     ->get();
@@ -46,36 +46,36 @@ class DietController extends Controller {
 
 
     public function add(Request $request, $id) {
-        $diet = new Diet();
+        $Walk = new Walk();
 
-        $diet->DayOfWeek = $request->get('DayOfWeek');
-        $diet->time = $request->get('time');
-        $diet->description = $request->get('description');
-        $diet->pet_id = $id;
+        $Walk->DayOfWeek = $request->get('DayOfWeek');
+        $Walk->time = $request->get('time');
+        $Walk->description = $request->get('description');
+        $Walk->pet_id = $id;
 
-        $diet->save();
+        $Walk->save();
 
-        return response()->json($diet);
+        return response()->json($Walk);
     }
 
     public function delete($id, $day, $hour) {
-        $diet = Diet::whereIn('DayOfWeek',[$day-1,8])->where('time','=',$hour.':00:00')->first();
+        $Walk = Walk::whereIn('DayOfWeek',[$day-1,8])->where('time','=',$hour.':00:00')->first();
 
-        if($diet->DayOfWeek == 8) {
+        if($Walk->DayOfWeek == 8) {
             for($i = 0; $i < 7; $i++) {
                 if($i == $day-1) continue;
-                $diet2 = new Diet();
-                $diet2->DayOfWeek = $i;
-                $diet2->time = $diet->time;
-                $diet2->description = $diet->description;
-                $diet2->pet_id = $id;
-                $diet2->save();
+                $Walk2 = new Walk();
+                $Walk2->DayOfWeek = $i;
+                $Walk2->time = $Walk->time;
+                $Walk2->description = $Walk->description;
+                $Walk2->pet_id = $id;
+                $Walk2->save();
             }
-            $diet->delete();
+            $Walk->delete();
         } else {
-            $diet->delete();
+            $Walk->delete();
         }
 
-        return $this->getDietsPet($id);
+        return $this->getWalksPet($id);
     }
 }
