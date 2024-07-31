@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('preop');
             $table->text('description');
             $table->text('result');
-            $table->text('complications');
+            $table->text('complications')->nullable();
             $table->timestamps();
 
             $table->foreign('pet_id')->references('id')->on('pets');

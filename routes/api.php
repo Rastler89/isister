@@ -11,6 +11,10 @@ use App\Http\Controllers\Api\DiseaseController;
 use App\Http\Controllers\Api\VaccineController;
 use App\Http\Controllers\Api\AllergyController;
 use App\Http\Controllers\Api\DietController;
+use App\Http\Controllers\Api\SurgeryController;
+use App\Http\Controllers\Api\MedicalController;
+use App\Http\Controllers\Api\TreatmentController;
+use App\Http\Controllers\Api\VisitController;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,9 +56,22 @@ Route::group(['middleware' => ['auth:api']], function() {
 
     Route::get('/profile',[UserController::class, 'profile']);
     Route::get('/profile/methods',[UserController::class, 'payments_method']);
+
+    Route::get('/surgeries/{id}',[SurgeryController::class, 'getSurgery']);
+    Route::post('/surgeries/{id}',[SurgeryController::class, 'addSurgery']);
+    Route::get('/surgeryType',[SurgeryController::class, 'getTypes']);
+
+    Route::get('/treatments/{id}',[TreatmentController::class, 'getTreatment']);
+    Route::post('/treatments/{id}',[TreatmentController::class, 'addTreatment']);
+
+    Route::get('/visit/{id}',[VisitController::class, 'getVisit']);
+    Route::post('/visit/{id}',[VisitController::class, 'addVisit']);
+
+    Route::get('/medicals/{id}',[MedicalController::class, 'getMedical']);
+    Route::post('/medicals/{id}',[MedicalController::class, 'addMedical']);
+    Route::get('/medicalType',[MedicalController::class, 'getTypes']);
 });
 
 //Test TODO ELIMINAR
-Route::get('/diets/{id}',[DietController::class, 'getDietsPet']);
-
-//Route::post('/register', [RegisterController::class, 'register']);
+Route::get('/surgeries/types',[SurgeryController::class, 'getTypes']);
+Route::get('/surgery/type',[SurgeryController::class, 'getTypes']);

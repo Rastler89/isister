@@ -10,4 +10,8 @@ class SurgeryType extends Model
     use HasFactory;
 
     protected $table = 'operation_types';
+
+    public function surgeries() {
+        return $this->hasMany(Surgery::class);
+    }
 }

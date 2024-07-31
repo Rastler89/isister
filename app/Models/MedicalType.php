@@ -5,11 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class MedicalTest extends Model
+class MedicalType extends Model
 {
     use HasFactory;
 
-    public function MedicalType() {
-        return $this->belongsTo(MedicalType::class);
+    protected $table = 'test_types';
+
+    public function medicals() {
+        return $this->hasMany(Medical::class);
     }
 }

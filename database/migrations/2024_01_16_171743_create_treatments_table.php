@@ -15,8 +15,9 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('pet_id');
             $table->string('description',500);
+            $table->string('repetition');
             $table->datetime('start');
-            $table->datetime('end');
+            $table->datetime('end')->nullable();
             $table->timestamps();
 
             $table->foreign('pet_id')->references('id')->on('pets');
