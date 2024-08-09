@@ -28,48 +28,71 @@ use App\Http\Controllers\Api\VisitController;
 */
 
 Route::group(['middleware' => ['auth:api']], function() {
-    Route::get('/test', function(Request $request) {
-        return $request->user()->id;
+
+    Route::group(['prefix' => 'pets'], function() {
+        Route::get('/',[PetController::class, 'pets']);
+        Route::get('/{id}',[PetController::class, 'get']);
+        Route::group(['middleware' => 'grade'], function() {
+            Route::post('/', [PetController::class, 'add']);
+            Route::post('/{id}',[PetController::class, 'addImage']);
+            Route::put('/{id}',[PetController::class, 'update']);
+        });
     });
 
-    Route::get('/species', [SpecieController::class, 'getAll']);
-    Route::get('/species/{id}/breeds', [BreedController::class, 'getBySpecie']);
+    Route::group(['prefix' => 'species'], function() {
+        Route::get('/', [SpecieController::class, 'getAll']);
+        Route::get('/{id}/breeds', [BreedController::class, 'getBySpecie']);
+    });
 
-    Route::get('/pets',[PetController::class, 'pets']);
-    Route::post('/pets', [PetController::class, 'add']);
-    Route::post('/pets/{id}',[PetController::class, 'addImage']);
-    Route::get('/pets/{id}',[PetController::class, 'get']);
-    Route::put('/pets/{id}',[PetController::class, 'update']);
+    Route::group(['prefix' => 'diseases'], function() {
+        Route::get('/',[DiseaseController::class, 'get']);
+        Route::get('/{id}',[DiseaseController::class, 'getBy']);
+    });
 
-    Route::get('/diseases',[DiseaseController::class, 'get']);
-    Route::get('/diseases/{id}',[DiseaseController::class, 'getBy']);
+    Route::group(['prefix' => 'vaccines'], function() {
+        Route::get('/{id}',[VaccineController::class, 'getVaccinesPet']);
+        Route::post('/{id}',[VaccineController::class, 'add']);
+    });
 
-    Route::get('/vaccines/{id}',[VaccineController::class, 'getVaccinesPet']);
-    Route::post('/vaccines/{id}',[VaccineController::class, 'add']);
+    Route::group(['prefix' => 'allergies'], function() {
+        Route::get('/{id}',[AllergyController::class, 'getAllergiesPet']);
+        Route::post('/{id}',[AllergyController::class, 'add']);
+    });
 
-    Route::get('/allergies/{id}',[AllergyController::class, 'getAllergiesPet']);
-    Route::post('/allergies/{id}',[AllergyController::class, 'add']);
+    Route::group(['prefix' => 'diets'], function() {
+        Route::get('/{id}',[DietController::class, 'getDietsPet']);
+        Route::post('/{id}',[DietController::class, 'add']);
+        Route::delete('/{id}/{day}/{hour}',[DietController::class, 'delete']);
+    });
 
-    Route::get('/diets/{id}',[DietController::class, 'getDietsPet']);
-    Route::post('/diets/{id}',[DietController::class, 'add']);
-    Route::delete('/diets/{id}/{day}/{hour}',[DietController::class, 'delete']);
+    Route::group(['prefix' => 'profile'], function() {
+        Route::get('/',[UserController::class, 'profile']);
+        Route::get('/methods',[UserController::class, 'payments_method']);
+    });
 
-    Route::get('/profile',[UserController::class, 'profile']);
-    Route::get('/profile/methods',[UserController::class, 'payments_method']);
-
-    Route::get('/surgeries/{id}',[SurgeryController::class, 'getSurgery']);
-    Route::post('/surgeries/{id}',[SurgeryController::class, 'addSurgery']);
+    Route::group(['prefix' => 'surgeries'], function() {
+        Route::get('/{id}',[SurgeryController::class, 'getSurgery']);
+        Route::post('/{id}',[SurgeryController::class, 'addSurgery']);
+    });
+    
+    Route::group(['prefix' => 'treatments'], function() {
+        Route::get('/{id}',[TreatmentController::class, 'getTreatment']);
+        Route::post('/{id}',[TreatmentController::class, 'addTreatment']);
+    });
+    
+    Route::group(['prefix' => 'visit'], function() {
+        Route::get('/{id}',[VisitController::class, 'getVisit']);
+        Route::post('/{id}',[VisitController::class, 'addVisit']);
+    });
+    
+    Route::group(['prefix' => 'medicals'], function() {
+        Route::get('/{id}',[MedicalController::class, 'getMedical']);
+        Route::post('/{id}',[MedicalController::class, 'addMedical']);
+    });
+    
+    Route::get('/medicalType',[MedicalController::class, 'getTypes']);
     Route::get('/surgeryType',[SurgeryController::class, 'getTypes']);
 
-    Route::get('/treatments/{id}',[TreatmentController::class, 'getTreatment']);
-    Route::post('/treatments/{id}',[TreatmentController::class, 'addTreatment']);
-
-    Route::get('/visit/{id}',[VisitController::class, 'getVisit']);
-    Route::post('/visit/{id}',[VisitController::class, 'addVisit']);
-
-    Route::get('/medicals/{id}',[MedicalController::class, 'getMedical']);
-    Route::post('/medicals/{id}',[MedicalController::class, 'addMedical']);
-    Route::get('/medicalType',[MedicalController::class, 'getTypes']);
 });
 
 //Test TODO ELIMINAR

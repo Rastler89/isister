@@ -48,4 +48,8 @@ class User extends Authenticatable implements MustVerifyEmail
     public function subscription() {
         return $this->belongsTo(Subscription::class);
     }
+
+    public function pets() {
+        return $this->hasMany(Pet::class);
+    }
 }
