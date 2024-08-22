@@ -11,7 +11,7 @@ class MedicalType extends Model
 
     protected $table = 'test_types';
 
-    public function medicals() {
+    public function medicals(): HasMany {
         return $this->hasMany(Medical::class);
     }
 }

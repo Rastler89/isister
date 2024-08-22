@@ -96,5 +96,6 @@ Route::group(['middleware' => ['auth:api']], function() {
 });
 
 //Test TODO ELIMINAR
-Route::get('/surgeries/types',[SurgeryController::class, 'getTypes']);
-Route::get('/surgery/type',[SurgeryController::class, 'getTypes']);
+Route::get('/csrf_token',function() {
+    return csrf_token();
+});

@@ -11,7 +11,7 @@ class Breed extends Model
 
     protected $fillable = ['name'];
 
-    public function species() {
+    public function species(): BelgonsTo {
         return $this->belongsTo(Species::class);
     }
 }

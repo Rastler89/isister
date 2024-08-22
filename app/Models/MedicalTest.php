@@ -9,7 +9,7 @@ class MedicalTest extends Model
 {
     use HasFactory;
 
-    public function MedicalType() {
+    public function MedicalType(): BelongsTo {
         return $this->belongsTo(MedicalType::class);
     }
 }
