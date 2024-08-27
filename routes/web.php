@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,4 +26,15 @@ Route::group(['middleware' => ['permission:view-users']], function() {
     Route::get('/test', function() {
         echo "hola";
     });
+});
+
+Route::get('/testmail', function () {
+    $user = User::find(1); // Cambia el ID a la del usuario que quieres probar
+
+    if ($user) {
+        $user->sendEmailVerificationNotification(); // Enviar el correo de verificación
+        return 'Correo de verificación enviado a ' . $user->email;
+    } else {
+        return 'Usuario no encontrado.';
+    }
 });
