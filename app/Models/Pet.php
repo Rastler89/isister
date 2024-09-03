@@ -10,39 +10,55 @@ class Pet extends Model
 {
     use HasFactory, SoftDeletes;
 
-    public function owner(): BelongsTo {
+    protected $fillable = [
+        'name',
+        'gender',
+        'birth',
+        'code',
+        'breed_id',
+        'status',
+        'image',
+        'character',
+        'description'
+    ];
+
+    public function owner() {
         return $this->belongsTo(User::class);
     }
 
-    public function visits(): HasMany {
+    public function vetvisits() {
         return $this->hasMany(VetVisit::class);
     }
 
-    public function surgeries(): HasMany {
+    public function surgeries() {
         return $this->hasMany(Surgery::class);
     }
 
-    public function treatments(): HasMany {
+    public function treatments() {
         return $this->hasMany(Treatment::class);
     }
 
-    public function vaccines(): HasMany {
+    public function vaccines() {
         return $this->hasMany(Vaccine::class);
     }
 
-    public function allergies():HasMany {
+    public function allergies(){
         return $this->hasMany(Allergy::class);
     }
 
-    public function diets(): HasMany {
+    public function diets() {
         return $this->hasMany(Diet::class);
     }
 
-    public function walks(): HasMany {
+    public function walkroutines() {
         return $this->hasMany(WalkRoutine::class);
     }
 
-    public function breed(): HasMany {
+    public function breed() {
         return $this->hasMany(Breed::class);
+    }
+
+    public function medicaltests() {
+        return $this->hasMany(MedicalTest::class);
     }
 }
