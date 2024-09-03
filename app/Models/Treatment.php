@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Treatment extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'name',
+        'description',
+        'repetition',
+        'start',
+        'end'
+    ];
 }
