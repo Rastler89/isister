@@ -96,6 +96,5 @@ Route::group(['middleware' => ['auth:api']], function() {
 });
 
 //Test TODO ELIMINAR
-Route::get('/csrf_token',function() {
-    return csrf_token();
-});
+Route::post('/register',[UserController::class, 'store']);
+Route::get('/diseasesget',[DiseaseController::class, 'get']);

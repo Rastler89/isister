@@ -23,12 +23,37 @@ class CheckSubscription
         }
 
         if(!$user->subscription) {
-            $maxPets = 1;
-            if ($user->pets->count() >= $maxPets) {
-                return response()->json(['error'=>'Limite suscripción'],422);
+            //Versión gratuita
+            if ($request->is('api/v1/pets') && $request->method() == 'POST') {
+                $maxPets = 1;
+                if ($user->pets->count() >= $maxPets) {
+                    return response()->json(['error'=>'Limite suscripción'],422);
+                } else {
+                    return $next($request);
+                }
             }
         } else {
-            
+            //Suscripciones
+            if ($request->is('api/v1/pets') && $request->method() == 'POST') {
+                // Verificar si la suscripción está activa
+                if ($user->subscription->active) {
+                    //$maxPets = $user->subscription->max_pets;
+                    $maxPets = 1;
+                    if ($user->pets->count() >= $maxPets) {
+                        return response()->json(['error'=>'Limite suscripción'],422);
+                    }
+                    return $next($request);
+                } else {
+                    $maxPets = 1;
+                    if ($user->pets->count() >= $maxPets) {
+                        return response()->json(['error'=>'Limite suscripción'],422);
+                    } else {
+                        return $next($request);
+                    }
+                }
+            }
         }
+
+        return $next($request);
     }
 }
