@@ -29,6 +29,8 @@ use App\Http\Controllers\Api\VisitController;
 
 Route::group(['middleware' => ['auth:api']], function() {
 
+    Route::post('/changePassword',[UserController::class, 'changePassword']);
+
     Route::group(['prefix' => 'pets'], function() {
         Route::get('/',[PetController::class, 'pets']);
         Route::get('/{id}',[PetController::class, 'get']);
