@@ -15,6 +15,7 @@ use App\Http\Controllers\Api\SurgeryController;
 use App\Http\Controllers\Api\MedicalController;
 use App\Http\Controllers\Api\TreatmentController;
 use App\Http\Controllers\Api\VisitController;
+use App\Http\Controllers\Api\CountryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,7 +30,15 @@ use App\Http\Controllers\Api\VisitController;
 
 Route::group(['middleware' => ['auth:api']], function() {
 
+    Route::group(['prefix' => 'countries'], function () {
+        Route::get('/',[CountryController::class, 'getCountries']);
+        Route::get('/{id}/states',[CountryController::class, 'getStates']);
+        Route::get('/states/{id}',[CountryController::class, 'getTownsByState']);
+    });
+
     Route::post('/changePassword',[UserController::class, 'changePassword']);
+    Route::post('/profile',[UserController::class, 'changeProfile']);
+    Route::get('/profile',[UserController::class, 'getProfile']);
 
     Route::group(['prefix' => 'pets'], function() {
         Route::get('/',[PetController::class, 'pets']);
@@ -99,4 +108,5 @@ Route::group(['middleware' => ['auth:api']], function() {
 
 //Test TODO ELIMINAR
 Route::post('/register',[UserController::class, 'store']);
-Route::get('/diseasesget',[DiseaseController::class, 'get']);
+
+Route::get('/countries/full',[CountryController::class, 'fullVersion']);
