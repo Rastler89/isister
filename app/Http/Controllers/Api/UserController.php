@@ -64,4 +64,25 @@ class UserController extends Controller {
 
         return response()->json(['message' => 'Password updated!'],201);
     }
+
+    public function getProfile(Request $request) {
+        return response()->json(User::find($request->user()->id));
+    }
+
+    public function changeProfile(Request $request) {
+        $user = User::find($request->user()->id);
+
+        $user->name = $request->get('name');
+        $user->surname = $request->get('username');
+        $user->phone = $request->get('phone');
+        $user->country = $request->get('country');
+        $user->state = $request->get('state');
+        $user->town = $request->get('town');
+        $user->adress = $request->get('adress');
+        $user->cp = $request->get('cp');
+
+        $user->save();
+
+        return response()->json($user);
+    }
 }
