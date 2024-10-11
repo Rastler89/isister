@@ -12,17 +12,17 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function($table) {
-            $table->string('surname');
-            $table->string('phone');
+            $table->string('surname')->nullable();
+            $table->string('phone')->nullable();
             $table->unsignedBigInteger('country')->nullable();
             $table->unsignedBigInteger('state')->nullable();
             $table->unsignedBigInteger('town')->nullable();
-            $table->string('adress');
-            $table->string('cp');
+            $table->string('adress')->nullable();
+            $table->string('cp')->nullable();
 
             $table->foreign('country')->references('id')->on('countries');
             $table->foreign('state')->references('id')->on('states');
-            $table->foreign('town')->references('town')->on('towns');
+            $table->foreign('town')->references('id')->on('towns');
         });
     }
 
