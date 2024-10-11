@@ -22,7 +22,7 @@ return new class extends Migration
 
             $table->foreign('country')->references('id')->on('countries');
             $table->foreign('state')->references('id')->on('states');
-            $table->foreign('town')->references('town')->on('town');
+            $table->foreign('town')->references('town')->on('towns');
         });
     }
 
