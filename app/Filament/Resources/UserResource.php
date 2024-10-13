@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\Select;
+use Filament\Tables\Actions\Action;
 
 class UserResource extends Resource
 {
@@ -46,6 +47,8 @@ class UserResource extends Resource
                 TextColumn::make('email')
                     ->sortable()
                     ->searchable(),
+                TextColumn::make('email_verified_at')
+                    ->sortable(),
                 TextColumn::make('roles')
                     ->label('Roles')
                     ->sortable()
@@ -61,6 +64,12 @@ class UserResource extends Resource
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
+                Action::make('reenviarVerificacion')
+                    ->label('Reenviar Verificación')
+                    ->action(function (User $record) {
+                        $record->sendEmailVerificationNotification();
+                        return redirect()->back()->with('success','Correo enviado');
+                    })
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
