@@ -10,6 +10,8 @@ use App\Models\Specie;
 
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
+
 
 class PetController extends Controller
 {
@@ -35,6 +37,7 @@ class PetController extends Controller
         $pet->birth = $request->get('birth');
         $pet->breed_id = $request->get('breed');
         $pet->code = $request->get('code');
+        $pet->hash = Hash::make(Str::random(40));
         $pet->status = 1;
 
         $pet->save();
