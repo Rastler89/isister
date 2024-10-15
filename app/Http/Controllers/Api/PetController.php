@@ -116,6 +116,12 @@ class PetController extends Controller
         $pet = Pet::where('hash','=',$hash)
                     ->with('vaccines')
                     ->with('allergies')
+                    ->with(['walkroutines' => function ($query) {
+                        $query->orderBy('DayOfWeek','asc')->orderBy('time','asc');
+                    }])
+                    ->with(['diets' => function ($query) {
+                        $query->orderBy('DayOfWeek','asc')->orderBy('time','asc');
+                    }])
                     ->first();
 
         $pet = $this->petBreed($pet);
@@ -135,6 +141,9 @@ class PetController extends Controller
 
             $vaccine->disease = $diseases;
         }
+
+        $pet->scheduleWalks = getSchedule($pet->walkroutines);
+        $pet->scheduleDiets = getSchedule($pet->diets);
         
 
         return response()->json($pet);

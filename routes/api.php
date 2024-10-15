@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\DiseaseController;
 use App\Http\Controllers\Api\VaccineController;
 use App\Http\Controllers\Api\AllergyController;
+use App\Http\Controllers\Api\WalkController;
 use App\Http\Controllers\Api\DietController;
 use App\Http\Controllers\Api\SurgeryController;
 use App\Http\Controllers\Api\MedicalController;
@@ -76,6 +77,14 @@ Route::group(['middleware' => ['auth:api']], function() {
         Route::delete('/{id}/{day}/{hour}',[DietController::class, 'delete']);
     });
 
+    Route::group(['prefix' => 'walks'], function() {
+        Route::get('/{id}',[WalkController::class, 'getWalksPet']);
+        Route::post('/{id}',[WalkController::class, 'add']);
+        Route::delete('/{id}/{day}/{hour}',[WalkController::class, 'delete']);
+    });
+
+
+
     Route::group(['prefix' => 'profile'], function() {
         Route::get('/',[UserController::class, 'profile']);
         Route::get('/methods',[UserController::class, 'payments_method']);
@@ -106,7 +115,6 @@ Route::group(['middleware' => ['auth:api']], function() {
 
 });
 
-//Test TODO ELIMINAR
 Route::post('/register',[UserController::class, 'store']);
 
 Route::get('/public/pet/{hash}',[PetController::class, 'public']);

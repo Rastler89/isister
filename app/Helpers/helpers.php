@@ -2,6 +2,7 @@
 
 if (! function_exists('getSchedule')) {
     function getSchedule($actions) {
+        
         $schedule = [];
         for ($i = 0; $i < 24; $i++) {
             $schedule[$i] = array_fill(0, 8, null);
@@ -28,7 +29,6 @@ if (! function_exists('getSchedule')) {
                 }
             }
         }
-
         return $schedule;
     }
 }

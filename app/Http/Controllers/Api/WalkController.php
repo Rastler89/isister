@@ -4,12 +4,12 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Walk;
+use App\Models\WalkRoutine;
 
 class WalkController extends Controller {
 
     public function getWalksPet($id) {
-        $actions = Walk::where('pet_id','=',$id)
+        $actions = WalkRoutine::where('pet_id','=',$id)
                     ->orderBy('DayOfWeek','asc')
                     ->orderBy('time','asc')
                     ->get();
@@ -21,7 +21,7 @@ class WalkController extends Controller {
 
 
     public function add(Request $request, $id) {
-        $Walk = new Walk();
+        $Walk = new WalkRoutine();
 
         $Walk->DayOfWeek = $request->get('DayOfWeek');
         $Walk->time = $request->get('time');
@@ -34,7 +34,7 @@ class WalkController extends Controller {
     }
 
     public function delete($id, $day, $hour) {
-        $Walk = Walk::whereIn('DayOfWeek',[$day-1,8])->where('time','=',$hour.':00:00')->first();
+        $Walk = WalkRoutine::whereIn('DayOfWeek',[$day-1,8])->where('time','=',$hour.':00:00')->first();
 
         if($Walk->DayOfWeek == 8) {
             for($i = 0; $i < 7; $i++) {
