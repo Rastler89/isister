@@ -109,4 +109,6 @@ Route::group(['middleware' => ['auth:api']], function() {
 //Test TODO ELIMINAR
 Route::post('/register',[UserController::class, 'store']);
 
+Route::get('/public/pet/{hash}',[PetController::class, 'public']);
+
 Route::get('/countries/full',[CountryController::class, 'fullVersion']);

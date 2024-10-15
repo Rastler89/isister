@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Pet;
 use App\Models\Breed;
 use App\Models\Specie;
+use App\Models\Vaccine;
+use App\Models\Disease;
 
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -71,18 +73,7 @@ class PetController extends Controller
     public function get($id) {
         $pet = Pet::find($id);
 
-        $breed = Breed::find($pet->breed_id);
-        $names = json_decode($breed->name,true);
-
-        $pet->breed_en = $names['en'];
-        $pet->breed_es = $names['es'];
-
-        $specie = Specie::find($breed->specie_id);
-        $names = json_decode($specie->name,true);
-
-        $pet->specie_id = $breed->specie_id;
-        $pet->specie_en = $names['en'];
-        $pet->specie_es = $names['es'];
+        $pet = $this->petBreed($pet);
 
         return response()->json($pet);
     }
@@ -118,5 +109,51 @@ class PetController extends Controller
         $pet->save();
 
         return response()->json($pet);
+    }
+
+    //Publico
+    public function public(Request $request, $hash) {
+        $pet = Pet::where('hash','=',$hash)
+                    ->with('vaccines')
+                    ->with('allergies')
+                    ->first();
+
+        $pet = $this->petBreed($pet);
+
+        foreach($pet->vaccines as $vaccine) {
+            $diseases = json_decode($vaccine->disease, true);
+
+            foreach($diseases as &$disease) {
+                $dname = Disease::find($disease);
+                $names = json_decode($dname->name,true);
+
+                $dname->name_en = $names['en'];
+                $dname->name_es = $names['es'];
+
+                $disease = $dname;
+            }
+
+            $vaccine->disease = $diseases;
+        }
+        
+
+        return response()->json($pet);
+    }
+
+    private function petBreed($pet) {
+        $breed = Breed::find($pet->breed_id);
+        $names = json_decode($breed->name,true);
+
+        $pet->breed_en = $names['en'];
+        $pet->breed_es = $names['es'];
+
+        $specie = Specie::find($breed->specie_id);
+        $names = json_decode($specie->name,true);
+
+        $pet->specie_id = $breed->specie_id;
+        $pet->specie_en = $names['en'];
+        $pet->specie_es = $names['es'];
+
+        return $pet;
     }
 }
