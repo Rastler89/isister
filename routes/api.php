@@ -100,7 +100,7 @@ Route::group(['middleware' => ['auth:api']], function() {
         Route::post('/{id}',[TreatmentController::class, 'addTreatment']);
     });
     
-    Route::group(['prefix' => 'visit'], function() {
+    Route::group(['prefix' => 'visits'], function() {
         Route::get('/{id}',[VisitController::class, 'getVisit']);
         Route::post('/{id}',[VisitController::class, 'addVisit']);
     });

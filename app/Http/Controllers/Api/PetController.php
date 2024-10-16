@@ -122,6 +122,10 @@ class PetController extends Controller
                     ->with(['diets' => function ($query) {
                         $query->orderBy('DayOfWeek','asc')->orderBy('time','asc');
                     }])
+                    ->with('vetvisits')
+                    ->with('treatments')
+                    ->with('surgeries')
+                    ->with('medicaltests')
                     ->first();
 
         $pet = $this->petBreed($pet);

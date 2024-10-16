@@ -4,12 +4,12 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Visit;
+use App\Models\VetVisit;
 
 class VisitController extends Controller {
 
     public function addVisit(Request $request, $id) {
-        $visit = new Visit(); 
+        $visit = new VetVisit(); 
 
         $visit->pet_id = $id;
         $visit->description = $request->get('description');
