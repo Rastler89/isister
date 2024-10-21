@@ -70,10 +70,24 @@ class PetController extends Controller
     }
 
     //Cerca la mascota
-    public function get($id) {
-        $pet = Pet::find($id);
+    public function get(Request $request, $id) {
+        $pet = Pet::where('id','=',$id)
+                    ->where('user_id','=',$request->user()->id)
+                    ->with('vaccines')
+                    ->with('allergies')
+                    ->with(['walkroutines' => function ($query) {
+                        $query->orderBy('DayOfWeek','asc')->orderBy('time','asc');
+                    }])
+                    ->with(['diets' => function ($query) {
+                        $query->orderBy('DayOfWeek','asc')->orderBy('time','asc');
+                    }])
+                    ->with('vetvisits')
+                    ->with('treatments')
+                    ->with('surgeries')
+                    ->with('medicaltests')
+                    ->first();
 
-        $pet = $this->petBreed($pet);
+        $pet = $this->profilePet($pet);
 
         return response()->json($pet);
     }
@@ -128,7 +142,24 @@ class PetController extends Controller
                     ->with('medicaltests')
                     ->first();
 
-        $pet = $this->petBreed($pet);
+        $pet = $this->profilePet($pet);
+
+        return response()->json($pet);
+    }
+
+    private function profilePet($pet) {
+        $breed = Breed::find($pet->breed_id);
+        $names = json_decode($breed->name,true);
+
+        $pet->breed_en = $names['en'];
+        $pet->breed_es = $names['es'];
+
+        $specie = Specie::find($breed->specie_id);
+        $names = json_decode($specie->name,true);
+
+        $pet->specie_id = $breed->specie_id;
+        $pet->specie_en = $names['en'];
+        $pet->specie_es = $names['es'];
 
         foreach($pet->vaccines as $vaccine) {
             $diseases = json_decode($vaccine->disease, true);
@@ -148,24 +179,6 @@ class PetController extends Controller
 
         $pet->scheduleWalks = getSchedule($pet->walkroutines);
         $pet->scheduleDiets = getSchedule($pet->diets);
-        
-
-        return response()->json($pet);
-    }
-
-    private function petBreed($pet) {
-        $breed = Breed::find($pet->breed_id);
-        $names = json_decode($breed->name,true);
-
-        $pet->breed_en = $names['en'];
-        $pet->breed_es = $names['es'];
-
-        $specie = Specie::find($breed->specie_id);
-        $names = json_decode($specie->name,true);
-
-        $pet->specie_id = $breed->specie_id;
-        $pet->specie_en = $names['en'];
-        $pet->specie_es = $names['es'];
 
         return $pet;
     }
