@@ -28,8 +28,8 @@ class AppServiceProvider extends ServiceProvider
         Filament::serving(function () {
             Filament::registerNavigationGroups([
                 NavigationGroup::make()
-                    ->label('Credentials')
-                    ->icon('heroicon-s-pencil')
+                    ->label('Geography')
+                    ->icon('heroicon-s-globe-europe-africa')
             ]);
         });
     }

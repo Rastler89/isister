@@ -18,7 +18,7 @@ class Specie extends Model
     }
 
     public function diseases() {
-        return $this->belongsToMany(Disease::class,'species_diseases','specie_id','disease_id');
+        return $this->belongsToMany(Disease::class);
     }
 
 }
