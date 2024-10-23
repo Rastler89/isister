@@ -9,6 +9,10 @@ class SurgeryType extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name'
+    ];
+
     protected $table = 'operation_types';
 
     public function surgeries() {
