@@ -85,6 +85,9 @@ class PetController extends Controller
                     ->with('treatments')
                     ->with('surgeries')
                     ->with('medicaltests')
+                    ->with(['constants' => function ($query) {
+                        $query->orderBy('type','asc')->orderBy('created_at','desc');
+                    }])
                     ->first();
 
         $pet = $this->profilePet($pet);
@@ -140,6 +143,7 @@ class PetController extends Controller
                     ->with('treatments')
                     ->with('surgeries')
                     ->with('medicaltests')
+                    ->with('constants')
                     ->first();
 
         $pet = $this->profilePet($pet);

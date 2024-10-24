@@ -17,6 +17,7 @@ use App\Http\Controllers\Api\MedicalController;
 use App\Http\Controllers\Api\TreatmentController;
 use App\Http\Controllers\Api\VisitController;
 use App\Http\Controllers\Api\CountryController;
+use App\Http\Controllers\Api\ConstantController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,6 +50,8 @@ Route::group(['middleware' => ['auth:api']], function() {
             Route::post('/{id}',[PetController::class, 'addImage']);
             Route::put('/{id}',[PetController::class, 'update']);
         });
+        Route::post('/{id}/size',[ConstantController::class, 'addSize']);
+        Route::post('/{id}/weight',[ConstantController::class, 'addWeight']);
     });
 
     Route::group(['prefix' => 'species'], function() {

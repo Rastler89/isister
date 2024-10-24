@@ -62,4 +62,8 @@ class Pet extends Model
     public function medicaltests() {
         return $this->hasMany(MedicalTest::class);
     }
+
+    public function constants() {
+        return $this->hasMany(Constant::class);
+    }
 }
