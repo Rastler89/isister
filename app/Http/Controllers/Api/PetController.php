@@ -128,6 +128,22 @@ class PetController extends Controller
         return response()->json($pet);
     }
 
+    public function changeStatus(Request $request, $id) {
+        $pet = Pet::find($id);
+
+        if($request->get('value')==1) {
+            $count = Pet::where('status','=',1)->where('user_id','=',$request->user()->id)->count();
+            if($count>0) {
+                return response()->json(['error' => 'se ha sobrepasado'],422);
+            }
+        }
+        $pet->status = $request->get('value');
+
+        $pet->save();
+
+        return response()->json($pet);
+    }
+
     //Publico
     public function public(Request $request, $hash) {
         $pet = Pet::where('hash','=',$hash)

@@ -29,7 +29,7 @@ class ConstantController extends Controller
         $constant->type = $type;
         $constant->value = $request->get('value');
 
-        //$constant->save();
+        $constant->save();
 
         return $constant;
     }

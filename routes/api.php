@@ -49,9 +49,10 @@ Route::group(['middleware' => ['auth:api']], function() {
             Route::post('/', [PetController::class, 'add']);
             Route::post('/{id}',[PetController::class, 'addImage']);
             Route::put('/{id}',[PetController::class, 'update']);
+            Route::post('/{id}/size',[ConstantController::class, 'addSize']);
+            Route::post('/{id}/weight',[ConstantController::class, 'addWeight']);
+            Route::put('/{id}/status',[PetController::class, 'changeStatus']);
         });
-        Route::post('/{id}/size',[ConstantController::class, 'addSize']);
-        Route::post('/{id}/weight',[ConstantController::class, 'addWeight']);
     });
 
     Route::group(['prefix' => 'species'], function() {
