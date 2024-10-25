@@ -29,8 +29,7 @@ use App\Http\Controllers\Api\ConstantController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-
-Route::group(['middleware' => ['auth:api']], function() {
+Route::group(['middleware' => ['auth:api','verified']], function() {
 
     Route::group(['prefix' => 'countries'], function () {
         Route::get('/',[CountryController::class, 'getCountries']);
