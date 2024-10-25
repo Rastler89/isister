@@ -9,6 +9,10 @@ class Disease extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+    ];
+
     public function species() {
         return $this->belongsToMany(Specie::class);
     }

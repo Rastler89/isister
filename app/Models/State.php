@@ -9,6 +9,10 @@ class State extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+    ];
+
     public function towns() {
         return $this->hasMany(Town::class);
     }
