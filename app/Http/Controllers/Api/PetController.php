@@ -55,15 +55,16 @@ class PetController extends Controller
         ]);
             
         $image = $request->image;  // your base64 encoded
-        $image = str_replace('data:image/png;base64,', '', $image);
-        $image = str_replace(' ', '+', $image);
-        $imageName = Str::random(10).'.'.'png';
-        \File::put(storage_path(). '/app/public/' . $imageName, base64_decode($image));
 
+        $imageData = base64_decode(substr($image,strpos($image,',')+1));
+
+        $filename = uniqid().'.jpg';
+
+        Storage::disk('public')->put($filename,$imageData);
 
         // Update pet record with the image filename
         $pet = Pet::find($id);
-        $pet->image = $imageName;
+        $pet->image = $filename;
         $pet->save();
 
         return response()->json(['message' => 'Upload']);
