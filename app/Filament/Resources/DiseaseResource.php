@@ -13,10 +13,12 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Split;
+
+
 
 class DiseaseResource extends Resource
 {
@@ -28,13 +30,13 @@ class DiseaseResource extends Resource
     {
         return $form
             ->schema([
-
-                            Textarea::make('name'),
-
-                            Select::make('specie')
-                                ->multiple()
-                                ->relationship('species','name')
-
+                Section::make('Name')
+                    ->statePath('name')
+                    ->schema([
+                        TextInput::make('en'),
+                        TextInput::make('es')
+                    ]),
+                
             ]);
     }
 

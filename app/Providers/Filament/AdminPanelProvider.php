@@ -56,6 +56,10 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->plugins([
                 \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make()
-          ]);
+            ])
+            ->navigationGroups([
+                'Data',
+                'Geography'
+            ]);
     }
 }

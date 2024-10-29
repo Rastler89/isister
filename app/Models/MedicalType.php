@@ -14,6 +14,10 @@ class MedicalType extends Model
     protected $fillable = [
         'name'
     ];
+    
+    protected $casts = [
+        'name' => 'json'
+    ];
 
     public function medicals(): HasMany {
         return $this->hasMany(Medical::class);

@@ -30,6 +30,14 @@ class AppServiceProvider extends ServiceProvider
                 NavigationGroup::make()
                     ->label('Geography')
                     ->icon('heroicon-s-globe-europe-africa')
+                    ->collapsed(),
+                NavigationGroup::make()
+                    ->label('Data')
+                    ->icon('heroicon-s-pencil')
+                    ->collapsed(),
+                NavigationGroup::make()
+                    ->label('Types')
+                    ->collapsed(),
             ]);
         });
     }

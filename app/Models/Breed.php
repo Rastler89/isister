@@ -10,9 +10,16 @@ class Breed extends Model
 {
     use Translatable, SoftDeletes;
 
-    protected $fillable = ['name'];
+    protected $fillable = [
+        'name',
+        'slug'
+    ];
 
-    public function species(): BelgonsTo {
-        return $this->belongsTo(Species::class);
+    protected $casts = [
+        'name' => 'json'
+    ];
+
+    public function species() {
+        return $this->belongsTo(Specie::class);
     }
 }

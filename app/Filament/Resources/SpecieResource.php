@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\SurgeryTypeResource\Pages;
-use App\Filament\Resources\SurgeryTypeResource\RelationManagers;
-use App\Models\SurgeryType;
+use App\Filament\Resources\SpecieResource\Pages;
+use App\Filament\Resources\SpecieResource\RelationManagers;
+use App\Models\Specie;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -16,11 +16,11 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Section;
 
-class SurgeryTypeResource extends Resource
+class SpecieResource extends Resource
 {
-    protected static ?string $model = SurgeryType::class;
+    protected static ?string $model = Specie::class;
 
-    protected static ?string $navigationGroup = 'Types';
+    protected static ?string $navigationGroup = 'Data';
 
     public static function form(Form $form): Form
     {
@@ -48,6 +48,9 @@ class SurgeryTypeResource extends Resource
                     ->label('Nombre'),
                 TextColumn::make('name.en')
                     ->label('Name'),
+                TextColumn::make('breeds_count')
+                    ->label('Breeds')
+                    ->counts('breeds')
             ])
             ->filters([
                 //
@@ -66,17 +69,17 @@ class SurgeryTypeResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            RelationManagers\BreedsRelationManager::class,
         ];
     }
 
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListSurgeryTypes::route('/'),
-            'create' => Pages\CreateSurgeryType::route('/create'),
-            'view' => Pages\ViewSurgeryType::route('/{record}'),
-            'edit' => Pages\EditSurgeryType::route('/{record}/edit'),
+            'index' => Pages\ListSpecies::route('/'),
+            'create' => Pages\CreateSpecie::route('/create'),
+            'view' => Pages\ViewSpecie::route('/{record}'),
+            'edit' => Pages\EditSpecie::route('/{record}/edit'),
         ];
     }
 }

@@ -9,11 +9,15 @@ class SurgeryType extends Model
 {
     use HasFactory;
 
+    protected $table = 'operation_types';
+
     protected $fillable = [
         'name'
     ];
 
-    protected $table = 'operation_types';
+    protected $casts = [
+        'name' => 'json'
+    ];
 
     public function surgeries() {
         return $this->hasMany(Surgery::class);

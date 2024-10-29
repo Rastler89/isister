@@ -2,9 +2,10 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\SurgeryTypeResource\Pages;
-use App\Filament\Resources\SurgeryTypeResource\RelationManagers;
-use App\Models\SurgeryType;
+use App\Filament\Resources\BreedResource\Pages;
+use App\Filament\Resources\BreedResource\RelationManagers;
+use App\Models\Breed;
+use App\Models\Specie;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -15,18 +16,23 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Select;
 
-class SurgeryTypeResource extends Resource
+
+class BreedResource extends Resource
 {
-    protected static ?string $model = SurgeryType::class;
+    protected static ?string $model = Breed::class;
 
-    protected static ?string $navigationGroup = 'Types';
+    protected static ?string $navigationGroup = 'Data';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 TextInput::make('slug'),
+                Select::make('specie_id')
+                    ->label('Especie')
+                    ->options(Specie::all()->pluck('slug', 'id')),
                 Section::make('Name')
                     ->statePath('name')
                     ->schema([
@@ -73,10 +79,10 @@ class SurgeryTypeResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListSurgeryTypes::route('/'),
-            'create' => Pages\CreateSurgeryType::route('/create'),
-            'view' => Pages\ViewSurgeryType::route('/{record}'),
-            'edit' => Pages\EditSurgeryType::route('/{record}/edit'),
+            'index' => Pages\ListBreeds::route('/'),
+            'create' => Pages\CreateBreed::route('/create'),
+            'view' => Pages\ViewBreed::route('/{record}'),
+            'edit' => Pages\EditBreed::route('/{record}/edit'),
         ];
     }
 }

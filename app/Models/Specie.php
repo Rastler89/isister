@@ -11,7 +11,14 @@ class Specie extends Model
 
     use Translatable, SoftDeletes;
 
-    protected $fillable = ['name'];
+    protected $fillable = [
+        'name',
+        'slug'
+    ];
+
+    protected $casts = [
+        'name' => 'json'
+    ];
 
     public function breeds() {
         return $this->hasMany(Breed::class);

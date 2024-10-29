@@ -12,20 +12,27 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Filament\Forms\Components\Textarea;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Section;
 
 class MedicalTypeResource extends Resource
 {
     protected static ?string $model = MedicalType::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationGroup = 'Types';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Textarea::make('name')
+                TextInput::make('slug'),
+                Section::make('Name')
+                    ->statePath('name')
+                    ->schema([
+                        TextInput::make('en'),
+                        TextInput::make('es')
+                    ]),
             ]);
     }
 
@@ -33,7 +40,14 @@ class MedicalTypeResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('name')
+                TextColumn::make('slug')
+                    ->label('ID')
+                    ->sortable()
+                    ->searchable(),
+                TextColumn::make('name.es')
+                    ->label('Nombre'),
+                TextColumn::make('name.en')
+                    ->label('Name'),
             ])
             ->filters([
                 //

@@ -13,6 +13,10 @@ class Disease extends Model
         'name',
     ];
 
+    protected $casts = [
+        'name' => 'json'
+    ];
+
     public function species() {
         return $this->belongsToMany(Specie::class);
     }
