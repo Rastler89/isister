@@ -170,13 +170,13 @@ class PetController extends Controller
 
     private function profilePet($pet) {
         $breed = Breed::find($pet->breed_id);
-        $names = json_decode($breed->name,true);
+        $names = $breed->name;
 
         $pet->breed_en = $names['en'];
         $pet->breed_es = $names['es'];
 
         $specie = Specie::find($breed->specie_id);
-        $names = json_decode($specie->name,true);
+        $names = $specie->name;
 
         $pet->specie_id = $breed->specie_id;
         $pet->specie_en = $names['en'];
@@ -187,7 +187,7 @@ class PetController extends Controller
 
             foreach($diseases as &$disease) {
                 $dname = Disease::find($disease);
-                $names = json_decode($dname->name,true);
+                $names = $dname->name;
 
                 $dname->name_en = $names['en'];
                 $dname->name_es = $names['es'];
