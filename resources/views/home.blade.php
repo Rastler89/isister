@@ -13,7 +13,7 @@
  alert-success" role="alert">
             ¡Tu correo electrónico ha sido verificado exitosamente!
         </div>
-        <a href="https://tu-pagina-web.com" class="btn btn-primary">Ir a la página principal</a>
+        <a href="https://isister.org" class="btn btn-primary">Ir a la página principal</a>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
