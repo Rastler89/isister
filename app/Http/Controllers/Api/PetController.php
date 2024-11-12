@@ -9,6 +9,7 @@ use App\Models\Breed;
 use App\Models\Specie;
 use App\Models\Vaccine;
 use App\Models\Disease;
+use App\Models\User;
 
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -90,6 +91,9 @@ class PetController extends Controller
                         $query->orderBy('type','asc')->orderBy('created_at','desc');
                     }])
                     ->first();
+        $user = User::find($request->user()->id);
+
+        $pet->adoptive = ($user->type == 'society');
 
         $pet = $this->profilePet($pet);
 
@@ -132,13 +136,25 @@ class PetController extends Controller
     public function changeStatus(Request $request, $id) {
         $pet = Pet::find($id);
 
+        $user = User::find($request->user()->id);
+
         if($request->get('value')==1) {
             $count = Pet::where('status','=',1)->where('user_id','=',$request->user()->id)->count();
-            if($count>0) {
+            if($count>0 && $user->type == 'user') { //TODO: crear para suscripción (CheckSubscription)
                 return response()->json(['error' => 'se ha sobrepasado'],422);
             }
         }
         $pet->status = $request->get('value');
+
+        $pet->save();
+
+        return response()->json($pet);
+    }
+
+    public function changeAdopt(Request $request, $id) {
+        $pet = Pet::find($id);
+
+        $pet->is_in_adoption = $request->get('value');
 
         $pet->save();
 

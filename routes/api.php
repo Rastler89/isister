@@ -51,6 +51,7 @@ Route::group(['middleware' => ['auth:api','verified']], function() {
             Route::post('/{id}/size',[ConstantController::class, 'addSize']);
             Route::post('/{id}/weight',[ConstantController::class, 'addWeight']);
             Route::put('/{id}/status',[PetController::class, 'changeStatus']);
+            Route::put('/{id}/adopt',[PetController::class, 'changeAdopt']);
         });
     });
 

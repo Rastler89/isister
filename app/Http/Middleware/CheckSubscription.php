@@ -11,6 +11,8 @@ class CheckSubscription
 {
     /**
      * Handle an incoming request.
+     * 
+     * Limita las funciones y animales segun la suscripción // Nota society no tiene limite!
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
@@ -19,6 +21,10 @@ class CheckSubscription
         $user = Auth::user();
 
         if(!$user) {
+            return $next($request);
+        }
+
+        if($user->type == 'society') {
             return $next($request);
         }
 

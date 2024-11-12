@@ -20,7 +20,8 @@ class Pet extends Model
         'image',
         'character',
         'description',
-        'hash'
+        'hash',
+        'is_in_adoption'
     ];
 
     public function owner() {
