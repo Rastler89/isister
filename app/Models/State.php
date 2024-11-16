@@ -13,6 +13,10 @@ class State extends Model
         'name',
     ];
 
+    protected $casts = [
+        'name' => 'json'
+    ];
+
     public function towns() {
         return $this->hasMany(Town::class);
     }

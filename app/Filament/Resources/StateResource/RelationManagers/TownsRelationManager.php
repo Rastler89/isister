@@ -9,6 +9,8 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Section;
 
 class TownsRelationManager extends RelationManager
 {
@@ -18,9 +20,12 @@ class TownsRelationManager extends RelationManager
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
-                    ->required()
-                    ->maxLength(255),
+                Section::make('Name')
+                    ->statePath('name')
+                    ->schema([
+                        TextInput::make('en'),
+                        TextInput::make('es')
+                    ]),
             ]);
     }
 

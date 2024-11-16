@@ -12,8 +12,10 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Components\Section;
+
 
 class TownResource extends Resource
 {
@@ -25,9 +27,12 @@ class TownResource extends Resource
     {
         return $form
             ->schema([
-                Textarea::make('name')
-                    ->rows(10)
-                    ->cols(20)
+                Section::make('Name')
+                    ->statePath('name')
+                    ->schema([
+                        TextInput::make('en'),
+                        TextInput::make('es')
+                    ]),
             ]);
     }
 
@@ -35,7 +40,12 @@ class TownResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('name')
+                TextColumn::make('name.es')
+                    ->label('Nombre')
+                    ->sortable()
+                    ->searchable(),
+                TextColumn::make('name.en')
+                    ->label('Name')
                     ->sortable()
                     ->searchable(),
             ])
