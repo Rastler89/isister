@@ -18,8 +18,6 @@ class TownsRelationManager extends RelationManager
 
     public function form(Form $form): Form
     {
-        $state = $this->ownerRecord;
-
         return $form
             ->schema([
                 Section::make('Name')
@@ -28,9 +26,6 @@ class TownsRelationManager extends RelationManager
                         TextInput::make('en'),
                         TextInput::make('es'),
                     ]),
-                TextInput::make('country_id')
-                    ->default($state->country_id)
-                    ->hidden(),
             ]);
     }
 
