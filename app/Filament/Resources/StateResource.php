@@ -48,6 +48,10 @@ class StateResource extends Resource
                     ->label('Name')
                     ->sortable()
                     ->searchable(),
+                TextColumn::make('country_id')
+                    ->label('Country ID')
+                    ->sortable()
+                    ->searchable(),
                 TextColumn::make('towns_count')
                     ->label('Towns')
                     ->counts('towns')

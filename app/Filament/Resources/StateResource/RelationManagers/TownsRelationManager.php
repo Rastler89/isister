@@ -11,6 +11,8 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Section;
+use Filament\Tables\Columns\TextColumn;
+
 
 class TownsRelationManager extends RelationManager
 {
@@ -32,9 +34,12 @@ class TownsRelationManager extends RelationManager
     public function table(Table $table): Table
     {
         return $table
-            ->recordTitleAttribute('name')
+            ->recordTitleAttribute('id')
             ->columns([
-                Tables\Columns\TextColumn::make('name'),
+                TextColumn::make('name.es')
+                    ->label('Nombre'),
+                TextColumn::make('name.en')
+                    ->label('Name'),
             ])
             ->filters([
                 //
