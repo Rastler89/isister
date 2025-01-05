@@ -10,11 +10,14 @@ class Disease extends Model
     use HasFactory;
 
     protected $fillable = [
+        'slug',
         'name',
+        'description'
     ];
 
     protected $casts = [
-        'name' => 'json'
+        'name' => 'json',
+        'description' => 'json'
     ];
 
     public function species() {

@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\TextArea;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Split;
@@ -30,11 +31,29 @@ class DiseaseResource extends Resource
     {
         return $form
             ->schema([
+                TextInput::make('slug'),
+                Select::make('type')
+                    ->options([
+                        'v' => 'Virica',
+                        'b' => 'Bacteriana',
+                        'p' => 'Parasitaria',
+                        'h' => 'Hongos',
+                        'g' => 'Genetica',
+                        'o' => 'Otros'
+                    ])
+                    ->native(false)
+                    ->searchable(),
                 Section::make('Name')
                     ->statePath('name')
                     ->schema([
                         TextInput::make('en'),
                         TextInput::make('es')
+                    ]),
+                Section::make('Description')
+                    ->statePath('description')
+                    ->schema([
+                        TextArea::make('en'),
+                        TextArea::make('es')
                     ]),
                 
             ]);
@@ -44,7 +63,14 @@ class DiseaseResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('name'),
+                TextColumn::make('slug')
+                    ->label('ID')
+                    ->sortable()
+                    ->searchable(),
+                TextColumn::make('name.es')
+                    ->label('Nombre'),
+                TextColumn::make('name.en')
+                    ->label('Name'),
                 TextColumn::make('species_count')
                     ->label('Species')
                     ->counts('species')
