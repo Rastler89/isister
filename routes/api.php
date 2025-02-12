@@ -72,6 +72,7 @@ Route::group(['middleware' => ['auth:api','verified']], function() {
     Route::group(['prefix' => 'allergies'], function() {
         Route::get('/{id}',[AllergyController::class, 'getAllergiesPet']);
         Route::post('/{id}',[AllergyController::class, 'add']);
+        Route::put('/{id}/{allergyId}',[AllergyController::class, 'edit']);
     });
 
     Route::group(['prefix' => 'diets'], function() {

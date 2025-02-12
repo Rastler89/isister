@@ -201,6 +201,8 @@ class PetController extends Controller
         $pet->scheduleWalks = getSchedule($pet->walkroutines);
         $pet->scheduleDiets = getSchedule($pet->diets);
 
+        $pet->diseases = $specie->diseases;
+
         return $pet;
     }
 }

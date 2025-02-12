@@ -11,6 +11,7 @@ class Allergy extends Model
 
     protected $fillable = [
         'name',
-        'description'
+        'description',
+        'severity'
     ];
 }
