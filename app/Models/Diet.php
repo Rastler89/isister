@@ -12,6 +12,10 @@ class Diet extends Model
     protected $fillable = [
         'description',
         'dayOfWeek',
-        'time'
+        'time',
+        'type',
+        'amount',
+        'brand',
+        'information'
     ];
 }

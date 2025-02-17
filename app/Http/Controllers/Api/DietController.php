@@ -14,7 +14,7 @@ class DietController extends Controller {
                     ->orderBy('time','asc')
                     ->get();
 
-        $schedule = getSchedule($actions);
+        $schedule = getSchedule($actions,'diet');
 
         return response()->json($schedule);
     }
