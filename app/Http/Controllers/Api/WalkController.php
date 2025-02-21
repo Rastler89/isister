@@ -37,7 +37,7 @@ class WalkController extends Controller {
     }
 
     public function delete($id, $day, $hour) {
-        $Walk = WalkRoutine::whereIn('DayOfWeek',[$day-1,8])->where('time','=',$hour.':00:00')->first();
+        $Walk = WalkRoutine::whereIn('DayOfWeek',[$day,8])->where('time','=',$hour.':00:00')->first();
 
         if($Walk->DayOfWeek == 8) {
             for($i = 0; $i < 7; $i++) {
