@@ -23,4 +23,28 @@ class AllergyController extends Controller {
 
         return response()->json($allergy);
     }
+
+    public function edit(Request $request, $id, $allergyId) {
+        $allergy = Allergy::find($allergyId);
+
+        if($allergy->name != $request->get('name')) {
+            $allergy->name = $request->get('name');
+        }
+
+        if($allergy->description != $request->get('description')) {
+            $allergy->description = $request->get('description');
+        }
+
+        if($allergy->severity != $request->get('severity')) {
+            $allergy->severity = $request->get('severity');
+        }
+
+        if($allergy->created_at != $request->get('created_at')) {
+            $allergy->created_at = $request->get('created_at');
+        }
+
+        $allergy->save();
+
+        return response()->json($allergy);
+    }
 }

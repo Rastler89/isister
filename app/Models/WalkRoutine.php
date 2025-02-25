@@ -12,6 +12,9 @@ class WalkRoutine extends Model
     protected $fillable = [
         'description',
         'dayOfWeek',
-        'time'
+        'time',
+        'intensity',
+        'route',
+        'duration'
     ];
 }

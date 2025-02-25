@@ -198,8 +198,10 @@ class PetController extends Controller
             $vaccine->disease = $diseases;
         }
 
-        $pet->scheduleWalks = getSchedule($pet->walkroutines);
-        $pet->scheduleDiets = getSchedule($pet->diets);
+        $pet->scheduleWalks = getSchedule($pet->walkroutines,'walk');
+        $pet->scheduleDiets = getSchedule($pet->diets,'diet');
+
+        $pet->diseases = $specie->diseases;
 
         return $pet;
     }

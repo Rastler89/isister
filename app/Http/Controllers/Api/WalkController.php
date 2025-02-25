@@ -14,7 +14,7 @@ class WalkController extends Controller {
                     ->orderBy('time','asc')
                     ->get();
 
-        $schedule = getSchedule($actions);
+        $schedule = getSchedule($actions,'walk');
 
         return response()->json($schedule);
     }
@@ -26,6 +26,9 @@ class WalkController extends Controller {
         $Walk->DayOfWeek = $request->get('DayOfWeek');
         $Walk->time = $request->get('time');
         $Walk->description = $request->get('description');
+        $Walk->duration = $request->get('duration');
+        $Walk->intensity = $request->get('intensity');
+        $Walk->route = $request->get('route');
         $Walk->pet_id = $id;
 
         $Walk->save();
@@ -34,7 +37,7 @@ class WalkController extends Controller {
     }
 
     public function delete($id, $day, $hour) {
-        $Walk = WalkRoutine::whereIn('DayOfWeek',[$day-1,8])->where('time','=',$hour.':00:00')->first();
+        $Walk = WalkRoutine::whereIn('DayOfWeek',[$day,8])->where('time','=',$hour.':00:00')->first();
 
         if($Walk->DayOfWeek == 8) {
             for($i = 0; $i < 7; $i++) {
