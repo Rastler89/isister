@@ -33,13 +33,17 @@ class PetController extends Controller
     public function add(Request $request) {
         $pet = new Pet();
 
+        $hash = base64_encode(hash('sha256', Str::random(40), true));
+        $hash = strtr($hash, '+/', '-_'); // Sustituye + y / por caracteres seguros
+        $hash = rtrim($hash, '='); // Elimina el '=' final
+
         $pet->user_id = $request->user()->id;
         $pet->name = $request->get('name');
         $pet->gender = $request->get('gender');
         $pet->birth = $request->get('birth');
         $pet->breed_id = $request->get('breed');
         $pet->code = $request->get('code');
-        $pet->hash = Hash::make(Str::random(40));
+        $pet->hash = $hash;
         $pet->status = 1;
 
         $pet->save();
@@ -53,7 +57,7 @@ class PetController extends Controller
         $request->validate([
             'image' => 'required|string',
         ]);
-            
+
         $image = $request->image;  // your base64 encoded
 
         $imageData = base64_decode(substr($image,strpos($image,',')+1));
