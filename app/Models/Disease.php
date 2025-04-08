@@ -12,12 +12,27 @@ class Disease extends Model
     protected $fillable = [
         'slug',
         'name',
-        'description'
+        'description',
+        'type',
+        'category',
+        'symptoms',
+        'cont_animal',
+        'cont_human',
+        'transmision',
+        'forecast',
+        'prevention',
+        'go'
+
     ];
 
     protected $casts = [
         'name' => 'json',
-        'description' => 'json'
+        'description' => 'json',
+        'symptoms' => 'json',
+        'transmision' => 'json',
+        'forecast' => 'json',
+        'prevention' => 'json',
+        'go' => 'json'
     ];
 
     public function species() {

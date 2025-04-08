@@ -6,6 +6,7 @@ use App\Filament\Resources\DiseaseResource\Pages;
 use App\Filament\Resources\DiseaseResource\RelationManagers;
 use App\Models\Disease;
 use Filament\Forms;
+use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -43,18 +44,77 @@ class DiseaseResource extends Resource
                     ])
                     ->native(false)
                     ->searchable(),
-                Section::make('Name')
+                Select::make('category')
+                    ->options([
+                        1 => 'Sistema Cardiovascular',
+                        2 => 'Sistema Respiratorio',
+                        3 => 'Sistema Nervioso',
+                        4 => 'Sistema Músculo-Esquelético',
+                        5 => 'Degenerativas',
+                        6 => 'Bucodentales',
+                        7 => 'Sistema Ocular',
+                        8 => 'Sistema Auditivo',
+                        9 => 'Dermatología',
+                        10 => 'Endocrinología',
+                        11 => 'Infecciosas y Parasitarias',
+                        12 => 'Gastrointestinales',
+                        13 => 'Renales y Urinarias',
+                        14 => 'Oncologia',
+                        15 => 'Conductuales y Comportamiento',
+                        16 => 'Autoinmunes',
+                        17 => 'Hematológicas',
+                        18 => 'Hepáticas',
+                        19 => 'Nasales',
+                        20 => 'Cognitivias y Seniles',
+                    ])
+                    ->native(false)
+                    ->searchable(),
+                Section::make('Nombres')
                     ->statePath('name')
                     ->schema([
                         TextInput::make('en'),
                         TextInput::make('es')
                     ]),
-                Section::make('Description')
+                Section::make('Descripción')
                     ->statePath('description')
                     ->schema([
                         TextArea::make('en'),
                         TextArea::make('es')
                     ]),
+                Section::make('Sintomas')
+                    ->statePath('symptoms')
+                    ->schema([
+                        TextInput::make('en'),
+                        TextInput::make('es')
+                    ]),
+                Checkbox::make('cont_animal')
+                    ->label('Contagia animales'),
+                Checkbox::make('cont_human')
+                    ->label('Contagia humanos'),
+                Section::make('Via de transmisión')
+                    ->statePath('transmision')
+                    ->schema([
+                        TextInput::make('en'),
+                        TextInput::make('es')
+                    ]),
+                Section::make('Pronostico')
+                    ->statePath('forecast')
+                    ->schema([
+                        TextInput::make('en'),
+                        TextInput::make('es')
+                    ]),
+                Section::make('Prevención')
+                    ->statePath('prevention')
+                    ->schema([
+                        TextInput::make('en'),
+                        TextInput::make('es')
+                    ]),
+                Section::make('Cuando ir al veterinario?')
+                    ->statePath('go')
+                    ->schema([
+                        TextInput::make('en'),
+                        TextInput::make('es')
+                    ])
 
             ]);
     }
