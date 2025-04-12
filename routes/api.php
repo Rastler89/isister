@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ArticleController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -98,26 +99,30 @@ Route::group(['middleware' => ['auth:api','verified']], function() {
         Route::get('/{id}',[SurgeryController::class, 'getSurgery']);
         Route::post('/{id}',[SurgeryController::class, 'addSurgery']);
     });
-    
+
     Route::group(['prefix' => 'treatments'], function() {
         Route::get('/{id}',[TreatmentController::class, 'getTreatment']);
         Route::post('/{id}',[TreatmentController::class, 'addTreatment']);
     });
-    
+
     Route::group(['prefix' => 'visits'], function() {
         Route::get('/{id}',[VisitController::class, 'getVisit']);
         Route::post('/{id}',[VisitController::class, 'addVisit']);
     });
-    
+
     Route::group(['prefix' => 'medicals'], function() {
         Route::get('/{id}',[MedicalController::class, 'getMedical']);
         Route::post('/{id}',[MedicalController::class, 'addMedical']);
     });
-    
+
     Route::get('/medicalType',[MedicalController::class, 'getTypes']);
     Route::get('/surgeryType',[SurgeryController::class, 'getTypes']);
 
 });
+
+Route::get('/articles',[ArticleController::class, 'getArticles']);
+Route::get('/articles/category/{slug}',[ArticleController::class, 'getArticlesByCategory']);
+Route::get('/articles/{slug}',[ArticleController::class, 'getArticleBySlug']);
 
 Route::post('/register',[UserController::class, 'store']);
 
