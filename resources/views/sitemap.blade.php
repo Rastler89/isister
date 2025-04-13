@@ -4,25 +4,25 @@
 
     <!-- Home -->
     <url>
-        <loc>{{ url('/') }}</loc>
+        <loc>{{ clientUrl('/') }}</loc>
         <lastmod>{{ now()->toAtomString() }}</lastmod>
     </url>
 
     <!-- Blog -->
     <url>
-        <loc>{{ url('/blog') }}</loc>
+        <loc>{{ clientUrl('/blog') }}</loc>
         <lastmod>{{ now()->toAtomString() }}</lastmod>
     </url>
 
     <!-- Privacy -->
     <url>
-        <loc>{{ url('/privacy') }}</loc>
+        <loc>{{ clientUrl('/privacy') }}</loc>
         <lastmod>{{ now()->toAtomString() }}</lastmod>
     </url>
 
     <!-- Terms -->
     <url>
-        <loc>{{ url('/terms') }}</loc>
+        <loc>{{ clientUrl('/terms') }}</loc>
         <lastmod>{{ now()->toAtomString() }}</lastmod>
     </url>
 
