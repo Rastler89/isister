@@ -85,7 +85,20 @@ class ArticleResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('slug')
+                    ->label('Slug')
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make('title')
+                    ->label('Titulo')
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make('category')
+                    ->label('Categoria')
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make('reading_time')
+                    ->label('Tiempo de lectura')
             ])
             ->filters([
                 //
@@ -103,20 +116,7 @@ class ArticleResource extends Resource
     public static function getRelations(): array
     {
         return [
-            TextColumn::make('slug')
-                ->label('Slug')
-                ->searchable()
-                ->sortable(),
-            TextColumn::make('title')
-                ->label('Titulo')
-                ->searchable()
-                ->sortable(),
-            TextColumn::make('category')
-                ->label('Categoria')
-                ->searchable()
-                ->sortable(),
-            TextColumn::make('reading_time')
-                ->label('Tiempo de lectura')
+            //
         ];
     }
 
