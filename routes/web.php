@@ -25,13 +25,5 @@ Auth::routes(['verify' => true]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/testmail', function () {
-    $user = User::find(1); // Cambia el ID a la del usuario que quieres probar
+Route::get('/sitemap.xml', [App\Http\Controllers\SitemapController::class, 'index']);
 
-    if ($user) {
-        $user->sendEmailVerificationNotification(); // Enviar el correo de verificación
-        return 'Correo de verificación enviado a ' . $user->email;
-    } else {
-        return 'Usuario no encontrado.';
-    }
-});
