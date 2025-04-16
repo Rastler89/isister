@@ -18,8 +18,8 @@ class MascotasChart extends ChartWidget
             ->get();
 
         $species = [
-            1 => 'Perros',
-            2 => 'Gatos',
+            1 => 'Gatos',
+            2 => 'Perros',
         ];
 
         foreach ($resultados as $fila) {
