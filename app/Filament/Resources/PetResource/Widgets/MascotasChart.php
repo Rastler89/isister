@@ -10,6 +10,8 @@ class MascotasChart extends ChartWidget
 {
     protected static ?string $heading = 'Mascotas por tipo';
 
+    protected static ?int $sort = 2;
+
     protected function getData(): array
     {
         $resultados = Pet::select('breeds.specie_id', DB::raw('count(*) as total'))
