@@ -9,9 +9,9 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Laravel\Cashier\Billable;
-use Illuminate\Database\Eloquent\SoftDeletes; 
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class User extends Authenticatable implements MustVerifyEmail 
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles, Billable, SoftDeletes;
 
@@ -53,5 +53,10 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function pets() {
         return $this->hasMany(Pet::class);
+    }
+
+    public function isAdmin()
+    {
+        return $this->hasRole('Admin');
     }
 }

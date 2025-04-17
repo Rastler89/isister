@@ -2,8 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\User;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
-use App\Models\Cashier\User;
 use Laravel\Cashier\Cashier;
 use Filament\Facades\Filament;
 use Filament\Navigation\NavigationGroup;
@@ -24,6 +25,10 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Cashier::useCustomerModel(User::class);
+
+        Gate::define('viewPulse', function (User $user) {
+            return $user->isAdmin();
+        });
 
         Filament::serving(function () {
             Filament::registerNavigationGroups([
