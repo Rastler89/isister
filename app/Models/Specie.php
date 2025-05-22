@@ -6,10 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 use App\Traits\Translatable;
 use Illuminate\Database\Eloquent\SoftDeletes; 
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 class Specie extends Model
 {
 
-    use Translatable, SoftDeletes;
+    use Translatable, SoftDeletes, HasFactory;
 
     protected $fillable = [
         'name',

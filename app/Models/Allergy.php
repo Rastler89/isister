@@ -9,6 +9,10 @@ class Allergy extends Model
 {
     use HasFactory;
 
+    public string $name;
+    public ?string $description = null;
+    public ?string $severity = null; 
+
     protected $fillable = [
         'name',
         'description',

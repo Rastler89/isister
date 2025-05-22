@@ -24,7 +24,10 @@ class MascotasChart extends ChartWidget
             2 => 'Perros',
         ];
 
+        $labels = []; // Initialize $labels
+        $data = [];   // Initialize $data
         foreach ($resultados as $fila) {
+            /** @var object{specie_id: int, total: int} $fila */
             $labels[] = $species[$fila->specie_id] ?? 'Desconocido';
             $data[] = $fila->total;
         }

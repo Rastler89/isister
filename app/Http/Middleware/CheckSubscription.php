@@ -33,7 +33,6 @@ class CheckSubscription
                 }
             }
         } else {
-            print('pago');die();
             //Suscripciones
             if ($request->is('api/pets') && $request->method() == 'POST') {
                 // Verificar si la suscripción está activa

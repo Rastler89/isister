@@ -19,7 +19,7 @@ class MedicalController extends Controller {
         $medical->pet_id = $id;
         $medical->type = $request->get('type');
         $medical->date = $request->get('date');
-        $surgery->description = $request->get('description');
+        $medical->description = $request->get('description'); // Corrected variable name
 
         $medical->save();
 
@@ -27,11 +27,13 @@ class MedicalController extends Controller {
     }
 
     public function getMedical($id) {
-        $medicals = MedicalTest::where('pet_id','=',$id)->get();
+        // Eager load the medicalType relationship
+        $medicals = MedicalTest::where('pet_id','=',$id)->with('medicalType')->get();
 
-        foreach($medicals as $medical) {
-            $medical->type = MedicalType::find($medical->type);   
-        }
+        // The 'type' attribute on MedicalTest itself is the foreign key (e.g., an int).
+        // The related MedicalType model (with its name, etc.) is now available via $medical->medicalType.
+        // No need to loop and re-assign $medical->type.
+        // The JSON response will automatically include the loaded relationship.
 
         return response()->json($medicals);
     }

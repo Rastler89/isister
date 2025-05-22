@@ -220,6 +220,9 @@ return new class extends Migration
             $table->date('birth');
             $table->string('code',20);
             $table->unsignedBigInteger('breed_id');
+            $table->string('species')->nullable(); // Added
+            $table->integer('age')->nullable(); // Added
+            $table->float('weight')->nullable(); // Added
             $table->integer('status')->default(1);
             $table->string('image')->nullable();
             $table->text('character')->nullable();

@@ -23,47 +23,47 @@ class Pet extends Model
         'hash'
     ];
 
-    public function owner() {
-        return $this->belongsTo(User::class);
+    public function owner(): \Illuminate\Database\Eloquent\Relations\BelongsTo {
+        return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function vetvisits() {
+    public function vetvisits(): \Illuminate\Database\Eloquent\Relations\HasMany {
         return $this->hasMany(VetVisit::class);
     }
 
-    public function surgeries() {
+    public function surgeries(): \Illuminate\Database\Eloquent\Relations\HasMany {
         return $this->hasMany(Surgery::class);
     }
 
-    public function treatments() {
+    public function treatments(): \Illuminate\Database\Eloquent\Relations\HasMany {
         return $this->hasMany(Treatment::class);
     }
 
-    public function vaccines() {
+    public function vaccines(): \Illuminate\Database\Eloquent\Relations\HasMany {
         return $this->hasMany(Vaccine::class);
     }
 
-    public function allergies(){
+    public function allergies(): \Illuminate\Database\Eloquent\Relations\HasMany {
         return $this->hasMany(Allergy::class);
     }
 
-    public function diets() {
+    public function diets(): \Illuminate\Database\Eloquent\Relations\HasMany {
         return $this->hasMany(Diet::class);
     }
 
-    public function walkroutines() {
+    public function walkroutines(): \Illuminate\Database\Eloquent\Relations\HasMany {
         return $this->hasMany(WalkRoutine::class);
     }
 
-    public function breed() {
-        return $this->hasMany(Breed::class);
+    public function breed(): \Illuminate\Database\Eloquent\Relations\BelongsTo {
+        return $this->belongsTo(Breed::class);
     }
 
-    public function medicaltests() {
+    public function medicaltests(): \Illuminate\Database\Eloquent\Relations\HasMany {
         return $this->hasMany(MedicalTest::class);
     }
 
-    public function constants() {
+    public function constants(): \Illuminate\Database\Eloquent\Relations\HasMany {
         return $this->hasMany(Constant::class);
     }
 }

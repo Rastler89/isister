@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Carbon\Carbon;
 use Illuminate\Console\Command;
+use App\Models\Article; // Added import
 
 class PublishArticles extends Command
 {
