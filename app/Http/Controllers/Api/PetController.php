@@ -205,8 +205,8 @@ class PetController extends Controller
 
         $breed = Breed::find($pet->breed_id);
         if ($breed && $breed->name) { // Rely on Eloquent cast to array for $breed->name
-            $pet->breed_en = $breed->name['en'] ?? 'EN NAME MISSING';
-            $pet->breed_es = $breed->name['es'] ?? 'ES NAME MISSING';
+            $pet->breed_en = is_array($breed->name) ? ($breed->name['en'] ?? 'EN NAME MISSING') : $breed->name;
+            $pet->breed_es = is_array($breed->name) ? ($breed->name['es'] ?? 'ES NAME MISSING') : $breed->name;
         } else {
             $pet->breed_en = 'BREED DATA MISSING';
             $pet->breed_es = 'BREED DATA MISSING';
@@ -234,8 +234,8 @@ class PetController extends Controller
                             // Create a new object or array to avoid modifying the model directly if not intended
                             $diseaseInfo = new \stdClass();
                             $diseaseInfo->id = $diseaseModel->id; // Or whatever properties are needed
-                            $diseaseInfo->name_en = $diseaseModel->name['en'] ?? 'EN NAME MISSING';
-                            $diseaseInfo->name_es = $diseaseModel->name['es'] ?? 'ES NAME MISSING';
+                            $diseaseInfo->name_en = is_array($diseaseModel->name) ? ($diseaseModel->name['en'] ?? 'EN NAME MISSING') : $diseaseModel->name;
+                            $diseaseInfo->name_es = is_array($diseaseModel->name) ? ($diseaseModel->name['es'] ?? 'ES NAME MISSING') : $diseaseModel->name;
                             $processedDiseases[] = $diseaseInfo;
                         }
                     }
@@ -250,21 +250,21 @@ class PetController extends Controller
         } else {
             $pet->scheduleWalks = []; // Default empty schedule
         }
-        
+
         if ($pet->relationLoaded('diets') && $pet->diets) {
             $pet->scheduleDiets = getSchedule($pet->diets,'diet');
         } else {
             $pet->scheduleDiets = []; // Default empty schedule
         }
 
-        if ($specie && $specie->relationLoaded('diseases') && $specie->diseases) {
+        if ($specie && $specie->relationLoaded('diseases')) {
             $pet->diseases = $specie->diseases;
         } elseif($specie) { // If specie exists but diseases not loaded or null
              $pet->diseases = $specie->diseases()->get(); // Attempt to load if not loaded
         } else {
             $pet->diseases = []; // Default empty array
         }
-        
+
         return $pet;
     }
 }

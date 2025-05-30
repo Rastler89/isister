@@ -5,6 +5,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property string $title
+ * @property integer $language
+ * @property string $slug
+ * @property string $cover_image
+ * @property string $category
+ * @property string $description
+ * @property string $content
+ * @property integer $reading_time
+ * @property string $cta_title
+ * @property string $cta_text
+ * @property integer $featured
+ * @property integer $published
+ * @property \Illuminate\Support\Carbon|string $date_publish
+ */
 class Article extends Model
 {
     use HasFactory;

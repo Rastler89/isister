@@ -11,14 +11,14 @@ class VerifySubscription
     /**
      * Handle an incoming request.
      *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     * @param  \Closure(Request): (Response)  $next
      */
     public function handle(Request $request, Closure $next): Response
     {
         if (!$request->user()->subscription || !$this->isValid($request->user()->subscription)) {
             throw new \Exception('Usuario sin suscripción válida.');
         }
-    
+
         return $next($request);
     }
 
