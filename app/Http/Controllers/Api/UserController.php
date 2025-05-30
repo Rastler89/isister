@@ -28,11 +28,12 @@ class UserController extends Controller {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8',
+            'password' => 'required|string|min:8|confirmed', // Added 'confirmed'
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()], 422);
+            // Return standard validation error structure
+            return response()->json(['message' => 'The given data was invalid.', 'errors' => $validator->errors()], 422);
         }
 
         $user = User::create([
@@ -50,16 +51,22 @@ class UserController extends Controller {
         $validator = Validator::make($request->all(), [
             'oldPassword' => 'required|string|min:8',
             'newPassword' => 'required|string|min:8',
-            'rePassword' => 'required|string|min:8'
+            'new_password_confirmation' => 'required|string|min:8|same:newPassword', // Using 'same' rule
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()], 400);
+            // Return standard validation error structure
+            return response()->json(['message' => 'The given data was invalid.', 'errors' => $validator->errors()], 400);
         }
 
-        $user = User::find($request->user()->id);
-        $user->password = Hash::make($request->newPassword);
+        $user = $request->user(); // Use $request->user() to get authenticated user
 
+        // Check if oldPassword matches current password
+        if (!Hash::check($request->oldPassword, $user->password)) {
+            return response()->json(['message' => 'The given data was invalid.', 'errors' => ['oldPassword' => ['Incorrect old password.']]], 400);
+        }
+
+        $user->password = Hash::make($request->newPassword);
         $user->save();
 
         return response()->json(['message' => 'Password updated!'],201);

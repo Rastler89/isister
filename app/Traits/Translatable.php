@@ -10,6 +10,7 @@ trait Translatable {
     public function getName() {
         $locale = app()->getLocale();
 
-        return $this->attribute['name']['$locale'] ?? '';
+        // Correctly use the $locale variable as the array key
+        return $this->attributes['name'][$locale] ?? ($this->attributes['name']['en'] ?? '');
     }
 }

@@ -53,7 +53,7 @@ class PetResource extends Resource
             RelationManagers\TreatmentsRelationManager::class,
             RelationManagers\SurgeriesRelationManager::class,
             RelationManagers\VetvisitsRelationManager::class,
-            RelationManagers\MedicalTestsRelationManager::class,
+            RelationManagers\MedicaltestsRelationManager::class, // Corrected case
         ];
     }
 

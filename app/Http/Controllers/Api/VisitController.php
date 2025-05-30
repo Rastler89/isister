@@ -21,7 +21,7 @@ class VisitController extends Controller {
     }
 
     public function getVisit($id) {
-        $visit = Visit::where('pet_id','=',$id)->get();
+        $visit = VetVisit::where('pet_id','=',$id)->get();
 
         return response()->json($visit);
     }

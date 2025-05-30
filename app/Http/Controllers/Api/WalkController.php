@@ -42,7 +42,7 @@ class WalkController extends Controller {
         if($Walk->DayOfWeek == 8) {
             for($i = 0; $i < 7; $i++) {
                 if($i == $day-1) continue;
-                $Walk2 = new Walk();
+                $Walk2 = new WalkRoutine();
                 $Walk2->DayOfWeek = $i;
                 $Walk2->time = $Walk->time;
                 $Walk2->description = $Walk->description;

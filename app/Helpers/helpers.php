@@ -40,6 +40,7 @@ if (!function_exists('getSchedule')) {
         ];
 
         $schedule = [];
+        $duration = '30 min'; // Initialize $duration
 
         foreach ($actions as $action) {
             $hour = intval(explode(':', $action->time)[0]);
