@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "country_id": 1,
+    "name": {"en": "Province of Mockington", "es": "Provincia de Simulacro"}
+  },
+  {
+    "id": 2,
+    "country_id": 1,
+    "name": {"en": "State of Illusion", "es": "Estado de Ilusión"}
+  },
+  {
+    "id": 3,
+    "country_id": 2,
+    "name": {"en": "Region of Testers", "es": "Región de Probadores"}
+  }
+]

@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "pet_id": 1,
+    "DayOfWeek": "Monday",
+    "time": "07:00:00",
+    "description": "Morning Walk (Mock)",
+    "duration": "30 minutes",
+    "intensity": "Medium",
+    "route": "Park loop"
+  },
+  {
+    "id": 2,
+    "pet_id": 1,
+    "DayOfWeek": "Monday",
+    "time": "19:00:00",
+    "description": "Evening Stroll (Mock)",
+    "duration": "20 minutes",
+    "intensity": "Low",
+    "route": "Around the block"
+  },
+  {
+    "id": 3,
+    "pet_id": 1,
+    "DayOfWeek": "Saturday",
+    "time": "10:00:00",
+    "description": "Weekend Hike (Mock)",
+    "duration": "1 hour",
+    "intensity": "High",
+    "route": "Trail A"
+  },
+  {
+    "id": 4,
+    "pet_id": 2,
+    "DayOfWeek": "Everyday",
+    "time": "09:00:00",
+    "description": "Playtime in Yard (Mock)",
+    "duration": "15 minutes",
+    "intensity": "Medium",
+    "route": "Backyard"
+  }
+]

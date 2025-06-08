@@ -129,3 +129,111 @@ Route::post('/register',[UserController::class, 'store']);
 Route::get('/public/pet/{hash}',[PetController::class, 'public']);
 
 Route::get('/countries/full',[CountryController::class, 'fullVersion']);
+
+// Dummy API Routes (No Middleware)
+Route::group(['prefix' => 'dummy'], function () {
+
+    // Countries
+    Route::group(['prefix' => 'countries'], function () {
+        Route::get('/',[App\Http\Controllers\Api\Dummy\DummyCountryController::class, 'getCountries']);
+        Route::get('/{id}/states',[App\Http\Controllers\Api\Dummy\DummyCountryController::class, 'getStates']);
+        Route::get('/states/{id}',[App\Http\Controllers\Api\Dummy\DummyCountryController::class, 'getTownsByState']); // Matches original structure
+        Route::get('/full',[App\Http\Controllers\Api\Dummy\DummyCountryController::class, 'fullVersion']);
+    });
+
+    // User Profile (Simulated)
+    // Note: /register is top-level in original, here it's dummy/register
+    Route::post('/register',[App\Http\Controllers\Api\Dummy\DummyUserController::class, 'store']);
+    Route::post('/changePassword',[App\Http\Controllers\Api\Dummy\DummyUserController::class, 'changePassword']);
+    Route::post('/profile',[App\Http\Controllers\Api\Dummy\DummyUserController::class, 'changeProfile']);
+    Route::get('/profile',[App\Http\Controllers\Api\Dummy\DummyUserController::class, 'getProfile']);
+
+    // Pets
+    // Note: /public/pet/{hash} is top-level in original, here it's dummy/public/pet/{hash}
+    Route::get('/public/pet/{hash}',[App\Http\Controllers\Api\Dummy\DummyPetController::class, 'publicGet']);
+    Route::group(['prefix' => 'pets'], function() {
+        Route::get('/',[App\Http\Controllers\Api\Dummy\DummyPetController::class, 'pets']);
+        Route::get('/{id}',[App\Http\Controllers\Api\Dummy\DummyPetController::class, 'get']);
+        Route::post('/', [App\Http\Controllers\Api\Dummy\DummyPetController::class, 'add']);
+        Route::post('/{id}',[App\Http\Controllers\Api\Dummy\DummyPetController::class, 'addImage']); // Original uses POST for image upload to pet ID
+        Route::put('/{id}',[App\Http\Controllers\Api\Dummy\DummyPetController::class, 'update']);
+        Route::post('/{id}/size',[App\Http\Controllers\Api\Dummy\DummyConstantController::class, 'addSize']);
+        Route::post('/{id}/weight',[App\Http\Controllers\Api\Dummy\DummyConstantController::class, 'addWeight']);
+        Route::put('/{id}/status',[App\Http\Controllers\Api\Dummy\DummyPetController::class, 'changeStatus']);
+    });
+
+    // Species & Breeds
+    Route::group(['prefix' => 'species'], function() {
+        Route::get('/', [App\Http\Controllers\Api\Dummy\DummySpecieController::class, 'getAll']);
+        Route::get('/{id}/breeds', [App\Http\Controllers\Api\Dummy\DummyBreedController::class, 'getBySpecie']);
+    });
+
+    // Diseases
+    Route::group(['prefix' => 'diseases'], function() {
+        Route::get('/',[App\Http\Controllers\Api\Dummy\DummyDiseaseController::class, 'get']);
+        Route::get('/{id}',[App\Http\Controllers\Api\Dummy\DummyDiseaseController::class, 'getBy']); // {id} is specie_id
+    });
+
+    // Vaccines
+    Route::group(['prefix' => 'vaccines'], function() {
+        Route::get('/{id}',[App\Http\Controllers\Api\Dummy\DummyVaccineController::class, 'getVaccinesPet']); // {id} is pet_id
+        Route::post('/{id}',[App\Http\Controllers\Api\Dummy\DummyVaccineController::class, 'add']);
+    });
+
+    // Allergies
+    Route::group(['prefix' => 'allergies'], function() {
+        Route::get('/{id}',[App\Http\Controllers\Api\Dummy\DummyAllergyController::class, 'getAllergiesPet']); // {id} is pet_id
+        Route::post('/{id}',[App\Http\Controllers\Api\Dummy\DummyAllergyController::class, 'add']);
+        Route::put('/{id}/{allergyId}',[App\Http\Controllers\Api\Dummy\DummyAllergyController::class, 'edit']);
+    });
+
+    // Diets
+    Route::group(['prefix' => 'diets'], function() {
+        Route::get('/{id}',[App\Http\Controllers\Api\Dummy\DummyDietController::class, 'getDietsPet']); // {id} is pet_id
+        Route::post('/{id}',[App\Http\Controllers\Api\Dummy\DummyDietController::class, 'add']);
+        Route::delete('/{id}/{day}/{hour}',[App\Http\Controllers\Api\Dummy\DummyDietController::class, 'delete']);
+    });
+
+    // Walks
+    Route::group(['prefix' => 'walks'], function() {
+        Route::get('/{id}',[App\Http\Controllers\Api\Dummy\DummyWalkController::class, 'getWalksPet']); // {id} is pet_id
+        Route::post('/{id}',[App\Http\Controllers\Api\Dummy\DummyWalkController::class, 'add']);
+        Route::delete('/{id}/{day}/{hour}',[App\Http\Controllers\Api\Dummy\DummyWalkController::class, 'delete']);
+    });
+
+    // Surgeries
+    // Note: /surgeryType is top-level in original authed group, here it's dummy/surgeryType
+    Route::get('/surgeryType',[App\Http\Controllers\Api\Dummy\DummySurgeryController::class, 'getTypes']);
+    Route::group(['prefix' => 'surgeries'], function() {
+        Route::get('/{id}',[App\Http\Controllers\Api\Dummy\DummySurgeryController::class, 'getSurgery']); // {id} is pet_id
+        Route::post('/{id}',[App\Http\Controllers\Api\Dummy\DummySurgeryController::class, 'addSurgery']);
+    });
+
+    // Medical Tests
+    // Note: /medicalType is top-level in original authed group, here it's dummy/medicalType
+    Route::get('/medicalType',[App\Http\Controllers\Api\Dummy\DummyMedicalController::class, 'getTypes']);
+    Route::group(['prefix' => 'medicals'], function() {
+        Route::get('/{id}',[App\Http\Controllers\Api\Dummy\DummyMedicalController::class, 'getMedical']); // {id} is pet_id
+        Route::post('/{id}',[App\Http\Controllers\Api\Dummy\DummyMedicalController::class, 'addMedical']);
+    });
+
+    // Treatments
+    Route::group(['prefix' => 'treatments'], function() {
+        Route::get('/{id}',[App\Http\Controllers\Api\Dummy\DummyTreatmentController::class, 'getTreatment']); // {id} is pet_id
+        Route::post('/{id}',[App\Http\Controllers\Api\Dummy\DummyTreatmentController::class, 'addTreatment']);
+    });
+
+    // Vet Visits
+    Route::group(['prefix' => 'visits'], function() {
+        Route::get('/{id}',[App\Http\Controllers\Api\Dummy\DummyVisitController::class, 'getVisit']); // {id} is pet_id
+        Route::post('/{id}',[App\Http\Controllers\Api\Dummy\DummyVisitController::class, 'addVisit']);
+    });
+
+    // Articles
+    // Note: These are top-level in original, here they are under dummy/articles/*
+    Route::group(['prefix' => 'articles'], function () {
+        Route::get('/',[App\Http\Controllers\Api\Dummy\DummyArticleController::class, 'getArticles']);
+        Route::get('/category/{slug}',[App\Http\Controllers\Api\Dummy\DummyArticleController::class, 'getArticlesByCategory']);
+        Route::get('/{slug}',[App\Http\Controllers\Api\Dummy\DummyArticleController::class, 'getArticleBySlug']);
+    });
+});

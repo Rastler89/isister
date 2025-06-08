@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "name": {"en": "Blood Test (Mock)", "es": "Análisis de Sangre (Simulado)"}
+  },
+  {
+    "id": 2,
+    "name": {"en": "Urinalysis (Mock)", "es": "Análisis de Orina (Simulado)"}
+  },
+  {
+    "id": 3,
+    "name": {"en": "X-Ray (Mock)", "es": "Radiografía (Simulado)"}
+  },
+  {
+    "id": 4,
+    "name": {"en": "Ultrasound (Mock)", "es": "Ecografía (Simulado)"}
+  }
+]

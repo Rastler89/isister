@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "name": {"en": "Canine Parvovirus (Mock)", "es": "Parvovirus Canino (Simulado)"},
+    "slug": "canine-parvovirus-mock",
+    "description": {"en": "A highly contagious viral illness...", "es": "Una enfermedad viral altamente contagiosa..."},
+    "symptoms": {"en": "Lethargy, vomiting, fever...", "es": "Letargo, vómitos, fiebre..."},
+    "species_ids": [1]
+  },
+  {
+    "id": 2,
+    "name": {"en": "Feline Leukemia Virus (Mock)", "es": "Virus de Leucemia Felina (Simulado)"},
+    "slug": "feline-leukemia-virus-mock",
+    "description": {"en": "A common infectious disease in cats...", "es": "Una enfermedad infecciosa común en gatos..."},
+    "symptoms": {"en": "Loss of appetite, poor coat condition...", "es": "Pérdida de apetito, mal estado del pelaje..."},
+    "species_ids": [2]
+  }
+]

@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "pet_id": 1,
+    "name": "Pollen Allergy (Mock)",
+    "description": "Reacts to seasonal pollen, especially in spring.",
+    "severity": "Medium"
+  },
+  {
+    "id": 2,
+    "pet_id": 1,
+    "name": "Dust Mite Allergy (Mock)",
+    "description": "Shows symptoms year-round, worse indoors.",
+    "severity": "High"
+  },
+  {
+    "id": 3,
+    "pet_id": 2,
+    "name": "Flea Bite Dermatitis (Mock)",
+    "description": "Severe itching and skin irritation from flea bites.",
+    "severity": "High"
+  }
+]

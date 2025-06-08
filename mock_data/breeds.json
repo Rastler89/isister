@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "name": {
+      "en": "Golden Retriever",
+      "es": "Golden Retriever"
+    },
+    "specie_id": 1
+  },
+  {
+    "id": 5,
+    "name": {
+      "en": "Poodle (Mock)",
+      "es": "Caniche (Simulado)"
+    },
+    "specie_id": 1
+  },
+  {
+    "id": 10,
+    "name": {
+      "en": "Siamese (Mock)",
+      "es": "Siamés (Simulado)"
+    },
+    "specie_id": 2
+  }
+]

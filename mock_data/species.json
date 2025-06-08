@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "name": {
+      "en": "Dog (Mock)",
+      "es": "Perro (Simulado)"
+    }
+  },
+  {
+    "id": 2,
+    "name": {
+      "en": "Cat (Mock)",
+      "es": "Gato (Simulado)"
+    }
+  }
+]

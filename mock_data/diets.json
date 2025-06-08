@@ -1,0 +1,46 @@
+[
+  {
+    "id": 1,
+    "pet_id": 1,
+    "DayOfWeek": "Monday",
+    "time": "08:00:00",
+    "description": "Morning Kibble (Mock)",
+    "brand": "MockBrand A",
+    "amount": "1 cup",
+    "type": "Dry Food",
+    "information": "Ensure fresh water is available."
+  },
+  {
+    "id": 2,
+    "pet_id": 1,
+    "DayOfWeek": "Monday",
+    "time": "18:00:00",
+    "description": "Evening Kibble (Mock)",
+    "brand": "MockBrand A",
+    "amount": "1 cup",
+    "type": "Dry Food",
+    "information": ""
+  },
+  {
+    "id": 3,
+    "pet_id": 1,
+    "DayOfWeek": "Wednesday",
+    "time": "12:00:00",
+    "description": "Mid-day Snack (Mock)",
+    "brand": "MockTreats",
+    "amount": "2 pieces",
+    "type": "Treat",
+    "information": "Healthy treat for training."
+  },
+  {
+    "id": 4,
+    "pet_id": 2,
+    "DayOfWeek": "Everyday",
+    "time": "07:00:00",
+    "description": "Morning Wet Food (Mock)",
+    "brand": "MockBrand C",
+    "amount": "1/2 can",
+    "type": "Wet Food",
+    "information": "Serve at room temperature."
+  }
+]

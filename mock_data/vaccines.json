@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "pet_id": 1,
+    "name": "Annual Canine Combo (Mock)",
+    "disease_ids": [1],
+    "lot": "LOT123MOCK",
+    "application_date": "2023-06-15",
+    "next_date": "2024-06-15",
+    "vcode": "VCODE001M"
+  },
+  {
+    "id": 2,
+    "pet_id": 2,
+    "name": "Feline RCP (Mock)",
+    "disease_ids": [2],
+    "lot": "LOT456MOCK",
+    "application_date": "2023-07-20",
+    "next_date": "2024-07-20",
+    "vcode": "VCODE002M"
+  }
+]

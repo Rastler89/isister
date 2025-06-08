@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "pet_id": 1,
+    "type_id": 1,
+    "date": "2023-01-20",
+    "description": "Annual wellness blood panel. Results normal."
+  },
+  {
+    "id": 2,
+    "pet_id": 1,
+    "type_id": 3,
+    "date": "2023-05-10",
+    "description": "Chest X-ray due to cough. Clear."
+  },
+  {
+    "id": 3,
+    "pet_id": 2,
+    "type_id": 2,
+    "date": "2023-02-25",
+    "description": "Urinalysis for kidney function check. Normal."
+  },
+  {
+    "id": 4,
+    "pet_id": 2,
+    "type_id": 4,
+    "date": "2023-11-05",
+    "description": "Abdominal ultrasound. No abnormalities detected."
+  }
+]

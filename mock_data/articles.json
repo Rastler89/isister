@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "slug": "fun-facts-about-dogs-mock",
+    "title": "Fun Facts About Dogs (Mock)",
+    "category": "dogs",
+    "cover_image": "mock_dog_facts.jpg",
+    "description": "Discover interesting and fun facts about our canine companions (mock data).",
+    "reading_time": 5,
+    "date_publish": "2023-03-10T00:00:00.000000Z",
+    "content": "<p>Dogs have been man's best friend for thousands of years... (mock content)</p>",
+    "published": 1
+  },
+  {
+    "id": 2,
+    "slug": "caring-for-cats-mock",
+    "title": "Caring for Your Feline Friend (Mock)",
+    "category": "cats",
+    "cover_image": "mock_cat_care.jpg",
+    "description": "Tips and tricks for keeping your cat healthy and happy (mock data).",
+    "reading_time": 7,
+    "date_publish": "2023-04-12T00:00:00.000000Z",
+    "content": "<p>Cats require specific care to thrive... (mock content)</p>",
+    "published": 1
+  },
+  {
+    "id": 3,
+    "slug": "another-dog-article-mock",
+    "title": "Another Dog Article (Mock)",
+    "category": "dogs",
+    "cover_image": "mock_another_dog.jpg",
+    "description": "More insights into the world of dogs (mock data).",
+    "reading_time": 4,
+    "date_publish": "2023-05-15T00:00:00.000000Z",
+    "content": "<p>Let's explore more about dogs... (mock content)</p>",
+    "published": 1
+  }
+]

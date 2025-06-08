@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "pet_id": 1,
+    "type_id": 1,
+    "date": "2022-08-10",
+    "preop": "Fasting for 12 hours.",
+    "description": "Routine neutering procedure.",
+    "result": "Successful, no complications.",
+    "complications": "None noted."
+  },
+  {
+    "id": 2,
+    "pet_id": 2,
+    "type_id": 2,
+    "date": "2022-09-15",
+    "preop": "Blood tests normal, fasted.",
+    "description": "Routine spaying procedure.",
+    "result": "Successful.",
+    "complications": "Minor swelling, resolved."
+  },
+  {
+    "id": 3,
+    "pet_id": 1,
+    "type_id": 3,
+    "date": "2023-10-05",
+    "preop": "General anesthesia.",
+    "description": "Scale and polish.",
+    "result": "Teeth cleaned, mild gingivitis noted.",
+    "complications": "None."
+  }
+]

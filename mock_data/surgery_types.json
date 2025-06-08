@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "name": {"en": "Neutering (Mock)", "es": "Castración (Simulado)"}
+  },
+  {
+    "id": 2,
+    "name": {"en": "Spaying (Mock)", "es": "Esterilización Ovárica (Simulado)"}
+  },
+  {
+    "id": 3,
+    "name": {"en": "Dental Cleaning (Mock)", "es": "Limpieza Dental (Simulado)"}
+  },
+  {
+    "id": 4,
+    "name": {"en": "Tumor Removal (Mock)", "es": "Extirpación de Tumor (Simulado)"}
+  }
+]
