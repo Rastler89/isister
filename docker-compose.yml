@@ -8,10 +8,6 @@ services:
             - SSL_PORT=${SSL_PORT:-443}
             - APP_SERVICE=${APP_SERVICE:-laravel.test}
             - SERVER_NAME=${SERVER_NAME:-localhost}
-        volumes:
-            - 'sail-nginx:/etc/nginx/certs'
-            - './vendor/ryoluo/sail-ssl/nginx/templates:/etc/nginx/templates'
-            - './vendor/ryoluo/sail-ssl/nginx/generate-ssl-cert.sh:/docker-entrypoint.d/99-generate-ssl-cert.sh'
         depends_on:
             - ${APP_SERVICE:-laravel.test}
         networks:
@@ -64,6 +60,20 @@ services:
                 - '-p${DB_PASSWORD}'
             retries: 3
             timeout: 5s
+    phpmyadmin:
+        image: phpmyadmin:latest
+        container_name: sail-phpmyadmin
+        depends_on:
+            - mysql
+        environment:
+            PMA_HOST: mysql
+            PMA_PORT: 3306
+            PMA_USER: root
+            PMA_PASSWORD: '${DB_PASSWORD}'
+        ports:
+            - '8080:80'
+        networks:
+            - sail
 networks:
     sail:
         driver: bridge
