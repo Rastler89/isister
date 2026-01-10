@@ -11,57 +11,38 @@ RUN npm ci
 COPY resources resources
 COPY vite.config.* ./
 RUN npm run build
-
 # =========================
-# 2️⃣ Runtime PHP (Producción)
+# 2️⃣ Runtime con FrankenPHP
 # =========================
-FROM php:8.2-fpm-alpine
+FROM dunglas/frankenphp:alpine
 
-# Dependencias del sistema
-RUN apk add --no-cache \
-    bash \
-    icu-dev \
-    libzip-dev \
-    oniguruma-dev \
-    libpng-dev \
-    jpeg-dev \
-    freetype-dev
-
-# Extensiones PHP necesarias para Laravel + dependencias reales
-RUN docker-php-ext-configure gd \
-    --with-freetype \
-    --with-jpeg \
- && docker-php-ext-install \
+# Instalamos extensiones de PHP necesarias
+RUN install-php-extensions \
     pdo_mysql \
-    mbstring \
-    zip \
-    intl \
     gd \
-    bcmath \
-    opcache
+    intl \
+    zip \
+    opcache \
+    bcmath
 
-# Composer
-COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+# Configuramos el directorio de trabajo
+WORKDIR /app
 
-WORKDIR /var/www/html
-
-# Copiar código
+# Copiamos los archivos del proyecto
 COPY . .
-
-# Instalar dependencias PHP (ya con TODAS las extensiones)
-RUN composer install \
-    --no-dev \
-    --prefer-dist \
-    --no-interaction \
-    --optimize-autoloader
-
-# Copiar frontend compilado
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 COPY --from=frontend /app/public/build public/build
 
-# Permisos
-RUN chown -R www-data:www-data storage bootstrap/cache \
- && chmod -R 775 storage bootstrap/cache
+# Instalamos dependencias de PHP
+RUN composer install --no-dev --optimize-autoloader
 
-EXPOSE 9000
+# PERMISOS CRÍTICOS PARA LARAVEL
+RUN chown -R www-data:www-data storage bootstrap/cache
 
-CMD ["php-fpm"]
+# Indicamos que el Document Root es la carpeta public
+ENV FRANKENPHP_CONFIG="root /app/public"
+
+EXPOSE 80
+EXPOSE 443
+
+CMD ["frankenphp", "run-config", "/etc/caddy/Caddyfile"]
