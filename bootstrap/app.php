@@ -41,6 +41,10 @@ $app->singleton(
     App\Exceptions\Handler::class
 );
 
+$app->withMiddleware(function (Middleware $middleware) {
+    $middleware->trustProxies(at: '*');
+})
+
 /*
 |--------------------------------------------------------------------------
 | Return The Application
