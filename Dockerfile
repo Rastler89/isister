@@ -1,20 +1,5 @@
 # =========================
-# 1️⃣ Builder PHP + Composer
-# =========================
-FROM composer:2 AS vendor
-
-WORKDIR /app
-
-COPY composer.json composer.lock ./
-RUN composer install \
-    --no-dev \
-    --prefer-dist \
-    --no-interaction \
-    --no-scripts \
-    --optimize-autoloader
-
-# =========================
-# 2️⃣ Builder Frontend (Vite)
+# 1️⃣ Frontend builder (Vite)
 # =========================
 FROM node:20-alpine AS frontend
 
@@ -28,7 +13,7 @@ COPY vite.config.* ./
 RUN npm run build
 
 # =========================
-# 3️⃣ Runtime PHP (Producción)
+# 2️⃣ Runtime PHP (Producción)
 # =========================
 FROM php:8.2-fpm-alpine
 
@@ -53,18 +38,25 @@ RUN docker-php-ext-configure gd \
     intl \
     gd
 
+# Composer
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
 WORKDIR /var/www/html
 
-# Copiar código base
+# Copiar código
 COPY . .
 
-# Copiar vendor desde builder
-COPY --from=vendor /app/vendor vendor
+# Instalar dependencias PHP (YA con extensiones)
+RUN composer install \
+    --no-dev \
+    --prefer-dist \
+    --no-interaction \
+    --optimize-autoloader
 
 # Copiar frontend compilado
 COPY --from=frontend /app/public/build public/build
 
-# Permisos correctos
+# Permisos
 RUN chown -R www-data:www-data storage bootstrap/cache \
  && chmod -R 775 storage bootstrap/cache
 
