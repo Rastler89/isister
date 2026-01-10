@@ -23,7 +23,9 @@ RUN install-php-extensions \
     intl \
     zip \
     opcache \
-    bcmath
+    bcmath \
+    exif \
+    pcntl
 
 # Configuramos el directorio de trabajo
 WORKDIR /app
