@@ -1,34 +1,32 @@
-# Stage 1: Runtime con FrankenPHP
 FROM dunglas/frankenphp:alpine
 
-# Instalamos extensiones de PHP necesarias para Laravel
+# 1. Extensiones de PHP
 RUN install-php-extensions \
-    pdo_mysql \
-    gd \
-    intl \
-    zip \
-    opcache \
-    bcmath \
-    exif \
-    pcntl
+    pdo_mysql gd intl zip opcache bcmath exif pcntl
 
 WORKDIR /app
 
-# Copiamos Composer desde la imagen oficial
+# 2. Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# Copiamos archivos de dependencias primero para optimizar la caché
+# 3. Instalación de dependencias (Separado para caché)
 COPY composer.json composer.lock ./
 RUN composer install --no-dev --no-interaction --no-autoloader --ignore-platform-reqs
 
-# Copiamos el resto del proyecto
+# 4. Copiar código y generar autoloader
 COPY . .
-
-# Finalizamos la instalación de Composer y damos permisos
 RUN composer dump-autoload --optimize --no-dev
+
+# 5. Permisos de Laravel
 RUN chown -R www-data:www-data storage bootstrap/cache
 
-# Configuramos el Document Root de FrankenPHP a la carpeta public de Laravel
-ENV FRANKENPHP_CONFIG="root /app/public"
+# 6. Configuración del servidor
+# Cambiamos el root del servidor a la carpeta public de Laravel
+ENV SERVER_NAME=:80
+ENV FRANKENPHP_CONFIG=""
+WORKDIR /app/public
 
 EXPOSE 80
+
+# Usamos el entrypoint oficial que ya sabe manejar Laravel
+CMD ["frankenphp", "php-server"]
