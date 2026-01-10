@@ -31,5 +31,6 @@ RUN chown -R www-data:www-data storage bootstrap/cache && \
 # Simplemente le decimos a FrankenPHP que sirva la carpeta public.
 ENV SERVER_NAME=:80
 WORKDIR /app/public
+COPY Caddyfile /etc/frankenphp/Caddyfile
 
 EXPOSE 80
