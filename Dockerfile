@@ -1,32 +1,35 @@
 FROM dunglas/frankenphp:alpine
 
-# 1. Extensiones de PHP
+# 1. Instalamos las extensiones necesarias
 RUN install-php-extensions \
     pdo_mysql gd intl zip opcache bcmath exif pcntl
 
+# 2. Seteamos el directorio de trabajo directamente en public
+# FrankenPHP busca por defecto el index.php en el directorio actual
 WORKDIR /app
 
-# 2. Composer
+# 3. Instalamos Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# 3. Instalación de dependencias (Separado para caché)
+# 4. Copiamos solo archivos de dependencias para aprovechar la caché
 COPY composer.json composer.lock ./
 RUN composer install --no-dev --no-interaction --no-autoloader --ignore-platform-reqs
 
-# 4. Copiar código y generar autoloader
+# 5. Copiamos el resto del proyecto
 COPY . .
+
+# 6. Generamos el autoloader y limpiamos
 RUN composer dump-autoload --optimize --no-dev
 
-# 5. Permisos de Laravel
-RUN chown -R www-data:www-data storage bootstrap/cache
+# 7. PERMISOS: FrankenPHP corre como root por defecto en Docker, 
+# pero Laravel necesita escribir en storage.
+RUN chown -R www-data:www-data storage bootstrap/cache && \
+    chmod -R 775 storage bootstrap/cache
 
-# 6. Configuración del servidor
-# Cambiamos el root del servidor a la carpeta public de Laravel
+# 8. CONFIGURACIÓN DE SERVER
+# No usamos FRANKENPHP_CONFIG para evitar errores de sintaxis.
+# Simplemente le decimos a FrankenPHP que sirva la carpeta public.
 ENV SERVER_NAME=:80
-ENV FRANKENPHP_CONFIG=""
 WORKDIR /app/public
 
 EXPOSE 80
-
-# Usamos el entrypoint oficial que ya sabe manejar Laravel
-CMD ["frankenphp", "php-server"]
