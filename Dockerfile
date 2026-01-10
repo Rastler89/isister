@@ -1,30 +1,41 @@
-FROM dunglas/frankenphp:alpine
+# Stage 1: Build frontend assets
+FROM node:18 AS frontend
+WORKDIR /app
+COPY package.json package-lock.json ./
+RUN npm install
+COPY . .
+RUN npm run build
 
-# 1. Extensiones necesarias
-RUN install-php-extensions pdo_mysql gd intl zip opcache bcmath exif pcntl
-
+# Stage 2: Build PHP application
+FROM dunglas/frankenphp:alpine AS app
 WORKDIR /app
 
-# 2. Composer
-COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+# Install PHP extensions
+RUN install-php-extensions pdo_mysql gd intl zip opcache bcmath exif pcntl
 
-# 3. Dependencias
+# Copy composer files
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 COPY composer.json composer.lock ./
+
+# Install composer dependencies
 RUN composer install --no-dev --no-interaction --no-autoloader --ignore-platform-reqs
 
-# 4. Código y permisos
+# Copy application files
 COPY . .
-RUN composer dump-autoload --optimize --no-dev
+
+# Copy frontend assets
+COPY --from=frontend /app/public/build /app/public/build
+
+# Set permissions
 RUN chown -R www-data:www-data storage bootstrap/cache && \
     chmod -R 775 storage bootstrap/cache
 
-# 5. Configuración crítica: Forzamos el servidor a NO intentar SSL
-# SERVER_NAME debe ser :80 para que no intente autogestionar certificados
+# Set server name
 ENV SERVER_NAME=:80
-WORKDIR /app/public
-COPY Caddyfile /etc/frankenphp/Caddyfile
 
+# Copy Caddyfile
+COPY Caddyfile /etc/caddy/Caddyfile
 
-EXPOSE 80
+EXPOSE 80 443 443/udp
 
-CMD ["frankenphp", "php-server"]
+CMD ["frankenphp", "run", "--config", "/etc/caddy/Caddyfile"]

@@ -1,0 +1,33 @@
+version: '3.8'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: isister_app_prod
+    restart: unless-stopped
+    working_dir: /app
+    networks:
+      - isister_prod
+
+  db:
+    image: mysql:8.0
+    container_name: isister_db_prod
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE:-isister}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-isister}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-isister}
+      MYSQL_USER: ${DB_USERNAME:-isister}
+    volumes:
+      - isister_db_data_prod:/var/lib/mysql
+    networks:
+      - isister_prod
+
+networks:
+  isister_prod:
+    driver: bridge
+
+volumes:
+  isister_db_data_prod:
+    driver: local

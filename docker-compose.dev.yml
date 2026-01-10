@@ -1,0 +1,63 @@
+version: '3.8'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: isister_app
+    restart: unless-stopped
+    working_dir: /var/www/html
+    volumes:
+      - ./:/var/www/html
+    networks:
+      - isister
+
+  db:
+    image: mysql:8.0
+    container_name: isister_db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE:-isister}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-isister}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-isister}
+      MYSQL_USER: ${DB_USERNAME:-isister}
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    volumes:
+      - isister_db_data:/var/lib/mysql
+    networks:
+      - isister
+
+  nginx:
+    image: nginx:alpine
+    container_name: isister_nginx
+    restart: unless-stopped
+    ports:
+      - "8000:80"
+    volumes:
+      - ./:/var/www/html
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d
+    networks:
+      - isister
+
+  vite:
+    image: node:18
+    container_name: isister_vite
+    working_dir: /var/www/html
+    volumes:
+      - ./:/var/w
+      - ./:/var/www/html
+    ports:
+      - "5173:5173"
+    command: >
+      bash -c "npm install && npm run dev"
+    networks:
+      - isister
+
+networks:
+  isister:
+    driver: bridge
+
+volumes:
+  isister_db_data:
+    driver: local
