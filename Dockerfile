@@ -1,43 +1,73 @@
-# --- 1️⃣ Base image ---
-FROM php:8.2-fpm
+# =========================
+# 1️⃣ Builder PHP + Composer
+# =========================
+FROM composer:2 AS vendor
 
-# --- 2️⃣ Instalar extensiones necesarias ---
-RUN apt-get update && apt-get install -y \
-    git \
-    unzip \
+WORKDIR /app
+
+COPY composer.json composer.lock ./
+RUN composer install \
+    --no-dev \
+    --prefer-dist \
+    --no-interaction \
+    --no-scripts \
+    --optimize-autoloader
+
+# =========================
+# 2️⃣ Builder Frontend (Vite)
+# =========================
+FROM node:20-alpine AS frontend
+
+WORKDIR /app
+
+COPY package.json package-lock.json ./
+RUN npm ci
+
+COPY resources resources
+COPY vite.config.* ./
+RUN npm run build
+
+# =========================
+# 3️⃣ Runtime PHP (Producción)
+# =========================
+FROM php:8.2-fpm-alpine
+
+# Dependencias del sistema
+RUN apk add --no-cache \
+    bash \
+    icu-dev \
     libzip-dev \
-    libonig-dev \
+    oniguruma-dev \
     libpng-dev \
-    libjpeg-dev \
-    libfreetype6-dev \
-    nodejs \
-    npm \
-    curl \
-    && docker-php-ext-install pdo_mysql zip mbstring gd
+    jpeg-dev \
+    freetype-dev
 
-# --- 3️⃣ Instalar Composer globalmente ---
-COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+# Extensiones PHP necesarias para Laravel
+RUN docker-php-ext-configure gd \
+    --with-freetype \
+    --with-jpeg \
+ && docker-php-ext-install \
+    pdo_mysql \
+    mbstring \
+    zip \
+    intl \
+    gd
 
-# --- 4️⃣ Crear usuario para la app ---
-RUN useradd -ms /bin/bash laravel
-WORKDIR /var/www/laravel
+WORKDIR /var/www/html
 
-# --- 5️⃣ Copiar proyecto (si quieres build local) ---
-# COPY . /var/www/laravel
+# Copiar código base
+COPY . .
 
-# --- 6️⃣ Configurar permisos ---
-RUN chown -R laravel:laravel /var/www/laravel
-USER laravel
+# Copiar vendor desde builder
+COPY --from=vendor /app/vendor vendor
 
-# --- 7️⃣ Exponer puerto FPM ---
+# Copiar frontend compilado
+COPY --from=frontend /app/public/build public/build
+
+# Permisos correctos
+RUN chown -R www-data:www-data storage bootstrap/cache \
+ && chmod -R 775 storage bootstrap/cache
+
 EXPOSE 9000
 
-# --- 8️⃣ Entrypoint: actualizar dependencias y arrancar ---
-# Se puede usar para Dokploy, que haga pull y build al iniciar
-ENTRYPOINT ["sh", "-c", "\
-    echo 'Desplegando Laravel...'; \
-    composer install --optimize-autoloader --no-dev; \
-    npm install && npm run build; \
-    php artisan migrate --force; \
-    php-fpm \
-"]
+CMD ["php-fpm"]
