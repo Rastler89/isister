@@ -27,7 +27,7 @@ RUN apk add --no-cache \
     jpeg-dev \
     freetype-dev
 
-# Extensiones PHP necesarias para Laravel
+# Extensiones PHP necesarias para Laravel + dependencias reales
 RUN docker-php-ext-configure gd \
     --with-freetype \
     --with-jpeg \
@@ -36,7 +36,9 @@ RUN docker-php-ext-configure gd \
     mbstring \
     zip \
     intl \
-    gd
+    gd \
+    bcmath \
+    opcache
 
 # Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
@@ -46,7 +48,7 @@ WORKDIR /var/www/html
 # Copiar código
 COPY . .
 
-# Instalar dependencias PHP (YA con extensiones)
+# Instalar dependencias PHP (ya con TODAS las extensiones)
 RUN composer install \
     --no-dev \
     --prefer-dist \
