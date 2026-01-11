@@ -1,5 +1,21 @@
-nucleox.isister.org {
+{
+    # Desactiva el admin port si no lo usas
+    admin off
+}
+
+:80 {
     root * /app/public
+    encode zstd gzip
     php_server
+
+    # ESTA ES LA CLAVE: Confía en los proxies locales para las cabeceras
+    # Dokploy suele usar IPs privadas (172.x.x.x)
+    trusted_proxy private_ranges
+
+    header {
+        # Elimina cabeceras que puedan forzar HTTPS doblemente
+        -Strict-Transport-Security
+    }
+
     file_server
 }

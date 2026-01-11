@@ -36,6 +36,15 @@ ENV SERVER_NAME=:80
 # Copy Caddyfile
 COPY Caddyfile /etc/caddy/Caddyfile
 
+# Añade esta variable para desactivar el auto-HTTPS de Caddy que choca con el proxy
+ENV TROWEL_HTTP_PORT=80
+ENV SERVER_NAME="http://" 
+
+# Asegúrate de que las variables de entorno de Laravel se carguen
+# (Opcional pero recomendado para debugging)
+ENV APP_ENV=production
+ENV APP_DEBUG=false
+
 EXPOSE 80 443 443/udp
 
 CMD ["frankenphp", "run", "--config", "/etc/caddy/Caddyfile"]
