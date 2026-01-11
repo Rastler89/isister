@@ -25,6 +25,10 @@ class AppServiceProvider extends ServiceProvider
     {
         Cashier::useCustomerModel(User::class);
 
+        if (config('app.env') === 'production') {
+            URL::forceScheme('https');
+        }
+
         Filament::serving(function () {
             Filament::registerNavigationGroups([
                 NavigationGroup::make()
