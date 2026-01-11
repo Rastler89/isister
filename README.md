@@ -45,81 +45,58 @@ The platform exposes a RESTful API (`/api`) to support web and mobile applicatio
 *   **Web Server:** (User should add their web server, e.g., Nginx or Apache)
 *   **Version Control:** Git
 
-## Installation/Setup
+## Docker Setup
 
-Follow these steps to get the Isister Backend project up and running on your local development environment.
+This project is fully containerized for both development and production environments.
 
-### Prerequisites
-*   PHP (version as per `composer.json` - e.g., ^8.1 - will use a generic placeholder for now)
-*   Composer
-*   Node.js & NPM (for frontend assets)
-*   MySQL (or your chosen database)
-*   Git
+### Development Environment
 
-### Steps
 1.  **Clone the repository:**
     ```bash
-    git clone <repository_url> # Replace <repository_url> with the actual URL
+    git clone <repository_url>
     cd isister-backend
     ```
 
-2.  **Install PHP Dependencies:**
-    ```bash
-    composer install
-    ```
-
-3.  **Install Frontend Dependencies:**
-    ```bash
-    npm install
-    ```
-
-4.  **Build Frontend Assets:**
-    ```bash
-    npm run dev
-    ```
-    *(Or `npm run build` for production assets)*
-
-5.  **Create Environment File:**
-    Copy the example environment file and customize it:
+2.  **Create Environment File:**
     ```bash
     cp .env.example .env
     ```
-    Update your database credentials (`DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD`) and other environment-specific settings in the `.env` file.
+    *Note: The default `DB_HOST` is `db`, which is the name of the database service in `docker-compose.dev.yml`.*
 
-6.  **Generate Application Key:**
+3.  **Build and Run Containers:**
     ```bash
-    php artisan key:generate
+    docker-compose -f docker-compose.dev.yml up -d --build
     ```
 
-7.  **Run Database Migrations:**
-    This will create the necessary tables in your database.
+4.  **Install Dependencies and Set Up Application:**
     ```bash
-    php artisan migrate
+    docker-compose -f docker-compose.dev.yml exec app composer install
+    docker-compose -f docker-compose.dev.yml exec app php artisan key:generate
+    docker-compose -f docker-compose.dev.yml exec app php artisan migrate
+    docker-compose -f docker-compose.dev.yml exec app php artisan db:seed
+    docker-compose -f docker-compose.dev.yml exec app php artisan passport:install
+    docker-compose -f docker-compose.dev.yml exec app php artisan storage:link
     ```
 
-8.  **Run Database Seeders (Optional but Recommended):**
-    This will populate the database with initial data (e.g., admin user, default settings).
-    ```bash
-    php artisan db:seed
-    ```
-    *(Check `database/seeders/` for available seeders. You might need to run specific seeders if applicable.)*
+5.  **Access the Application:**
+    -   **Web:** http://localhost:8000
+    -   **Vite HMR:** http://localhost:5173
 
-9.  **Set Up Laravel Passport:**
-    Install Passport and create encryption keys.
-    ```bash
-    php artisan passport:install
-    ```
+### Production Environment (Dokploy)
 
-10. **Link Storage Directory (if not already handled by deployment scripts):**
+1.  **Build and Push the Image:**
+    Build the production Docker image and push it to a container registry (e.g., Docker Hub, GitHub Container Registry).
     ```bash
-    php artisan storage:link
+    docker build -t your-registry/isister-backend .
+    docker push your-registry/isister-backend
     ```
 
-11. **Serve the Application:**
-    ```bash
-    php artisan serve
-    ```
-    The application should now be accessible at `http://localhost:8000` (or another port if specified).
+2.  **Dokploy Configuration:**
+    -   In your Dokploy dashboard, create a new application.
+    -   Use the `your-registry/isister-backend` image.
+    -   Set up the necessary environment variables (from your `.env` file).
+    -   For the database, you can use a managed database service or another Docker container linked to your application.
+    -   Configure your domain and SSL.
 
 ### Admin Panel Access
 *   Access the admin panel at `/admin` (default for Filament, please verify).
