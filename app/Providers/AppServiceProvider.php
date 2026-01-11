@@ -7,6 +7,7 @@ use App\Models\User;
 use Laravel\Cashier\Cashier;
 use Filament\Facades\Filament;
 use Filament\Navigation\NavigationGroup;
+use Illuminate\Routing\UrlGenerator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -25,8 +26,8 @@ class AppServiceProvider extends ServiceProvider
     {
         Cashier::useCustomerModel(User::class);
 
-        if (config('app.env') === 'production') {
-            URL::forceScheme('https');
+        if (env('APP_ENV') == 'production') {
+            $url->forceScheme('https');
         }
 
         Filament::serving(function () {
