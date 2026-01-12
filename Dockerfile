@@ -1,30 +1,41 @@
-FROM dunglas/frankenphp:alpine
+FROM php:8.3-cli AS base
 
-# 1. Extensiones necesarias
-RUN install-php-extensions pdo_mysql gd intl zip opcache bcmath exif pcntl
+# 1. Paquetes del sistema con ca-certificates
+RUN apt-get update && apt-get install -y \
+    git unzip curl libpng-dev libonig-dev libxml2-dev \
+    libzip-dev libpq-dev libcurl4-openssl-dev libssl-dev \
+    zlib1g-dev libicu-dev g++ libevent-dev procps ca-certificates openssl \
+    && docker-php-ext-install pdo pdo_mysql pdo_pgsql mbstring zip exif pcntl bcmath sockets intl
 
-WORKDIR /app
+# 2. Instalación de Swoole (Simplificada y robusta)
+RUN pecl install swoole-5.1.0 && docker-php-ext-enable swoole
 
-# 2. Composer
-COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+# 3. Node y Composer
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && apt-get install -y nodejs
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# 3. Dependencias
-COPY composer.json composer.lock ./
-RUN composer install --no-dev --no-interaction --no-autoloader --ignore-platform-reqs
+WORKDIR /var/www
 
-# 4. Código y permisos
+# 4. COPIAR TODO EL PROYECTO PRIMERO 
+# (Esto evita que composer install falle por falta de archivos referenciados en el json)
 COPY . .
-RUN composer dump-autoload --optimize --no-dev
-RUN chown -R www-data:www-data storage bootstrap/cache && \
-    chmod -R 775 storage bootstrap/cache
 
-# 5. Configuración crítica: Forzamos el servidor a NO intentar SSL
-# SERVER_NAME debe ser :80 para que no intente autogestionar certificados
-ENV SERVER_NAME=:80
-WORKDIR /app/public
-COPY Caddyfile /etc/frankenphp/Caddyfile
+# 5. Crear estructura de carpetas necesaria
+RUN mkdir -p bootstrap/cache storage/app storage/framework/cache/data \
+    storage/framework/sessions storage/framework/views storage/logs
 
+# 6. Install Composer con ignorar requisitos de plataforma por si acaso
+RUN composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist --ignore-platform-reqs
 
-EXPOSE 80
+# 7. Frontend (Vite)
+RUN npm install && npm run build
 
-CMD ["frankenphp", "php-server"]
+# 8. Permisos
+RUN chown -R www-data:www-data /var/www \
+    && chmod -R 775 /var/www/storage /var/www/bootstrap/cache
+
+EXPOSE 9000
+
+# 9. CMD optimizado para Dokploy
+# Usamos "sh -c" para que las variables de entorno se expandan correctamente
+CMD ["sh", "-c", "php artisan config:cache && php artisan route:cache && php artisan view:cache && php artisan octane:start --server=swoole --host=0.0.0.0 --port=9000"]

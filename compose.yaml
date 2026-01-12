@@ -1,24 +1,11 @@
 services:
-    nginx:
-        image: 'nginx:latest'
-        ports:
-            - '${HTTP_PORT:-8000}:80'
-            - '${SSL_PORT:-443}:443'
-        environment:
-            - SSL_PORT=${SSL_PORT:-443}
-            - APP_SERVICE=${APP_SERVICE:-laravel.test}
-            - SERVER_NAME=${SERVER_NAME:-localhost}
-        depends_on:
-            - ${APP_SERVICE:-laravel.test}
-        networks:
-            - sail
     laravel.test:
         build:
-            context: ./vendor/laravel/sail/runtimes/8.2
+            context: './vendor/laravel/sail/runtimes/8.5'
             dockerfile: Dockerfile
             args:
                 WWWGROUP: '${WWWGROUP}'
-        image: sail-8.3/app
+        image: 'sail-8.5/app'
         extra_hosts:
             - 'host.docker.internal:host-gateway'
         ports:
@@ -37,7 +24,7 @@ services:
         depends_on:
             - mysql
     mysql:
-        image: 'mysql/mysql-server:8.0'
+        image: 'mysql:8.4'
         ports:
             - '${FORWARD_DB_PORT:-3306}:3306'
         environment:
@@ -47,6 +34,7 @@ services:
             MYSQL_USER: '${DB_USERNAME}'
             MYSQL_PASSWORD: '${DB_PASSWORD}'
             MYSQL_ALLOW_EMPTY_PASSWORD: 1
+            MYSQL_EXTRA_OPTIONS: '${MYSQL_EXTRA_OPTIONS:-}'
         volumes:
             - 'sail-mysql:/var/lib/mysql'
             - './vendor/laravel/sail/database/mysql/create-testing-database.sh:/docker-entrypoint-initdb.d/10-create-testing-database.sh'
@@ -60,25 +48,9 @@ services:
                 - '-p${DB_PASSWORD}'
             retries: 3
             timeout: 5s
-    phpmyadmin:
-        image: phpmyadmin:latest
-        container_name: sail-phpmyadmin
-        depends_on:
-            - mysql
-        environment:
-            PMA_HOST: mysql
-            PMA_PORT: 3306
-            PMA_USER: root
-            PMA_PASSWORD: '${DB_PASSWORD}'
-        ports:
-            - '8080:80'
-        networks:
-            - sail
 networks:
     sail:
         driver: bridge
 volumes:
-    sail-nginx:
-        driver: local
     sail-mysql:
         driver: local

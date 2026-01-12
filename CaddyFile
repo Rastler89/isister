@@ -1,5 +1,0 @@
-nucleox.isister.org {
-    root * /app/public
-    php_server
-    file_server
-}
